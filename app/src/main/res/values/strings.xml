@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">gl-crash-course</string>
+
+    <!-- fragments -->
+    <string name="fragment_first_text">First fragment</string>
+    <string name="fragment_second_text">Second fragment</string>
+
+    <!-- buttons -->
+    <string name="btnStartFirstFragment">Start first fragment</string>
+    <string name="btnStartSecondFragment">Start second fragment</string>
+
 </resources>
