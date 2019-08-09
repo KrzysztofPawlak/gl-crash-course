@@ -17,7 +17,7 @@ class SecondFragment : Fragment() {
 
         view.btnStartFirstFragment.setOnClickListener {
             val fragment = FirstFragment.newInstance()
-            (activity as SecondActivity).replaceFragment(fragment)
+            (activity as SecondActivity).replaceFragment(fragment, getString(R.string.tag_fragment_first))
         }
 
         return view
