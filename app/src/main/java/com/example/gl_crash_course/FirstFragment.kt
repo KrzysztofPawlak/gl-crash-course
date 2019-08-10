@@ -37,7 +37,7 @@ class FirstFragment : Fragment() {
     }
 
     fun updateTransitionCounter(amount: Int) {
-        view?.first_fragment_text_transition?.text = amount.toString() // TODO: append, savestate
+        view?.first_fragment_text_transition?.text = getString(R.string.fragment_first_text_transition) + amount
     }
 
     companion object {
