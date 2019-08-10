@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="course_name_dim">24dp</dimen>
+    <dimen name="autor_dim">12dp</dimen>
+</resources>

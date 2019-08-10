@@ -2,9 +2,11 @@
     <string name="app_name">gl-crash-course</string>
     <string name="fragment_first_text_transition">Ilość przejść :</string>
 
-    <!-- fragments -->
+    <!-- textView -->
     <string name="fragment_first_text">First fragment</string>
     <string name="fragment_second_text">Second fragment</string>
+    <string name="course_name">Android crash course</string>
+    <string name="author">Krzysztof studio</string>
 
     <!-- fragments tags -->
     <string name="tag_fragment_first">FirstFragment</string>
