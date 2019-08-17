@@ -1,13 +1,12 @@
 package com.example.gl_crash_course
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.example.gl_crash_course.memberslist.FirstFragment
 
-class SecondActivity : AppCompatActivity(), FirstFragment.OnFragmentInteractionListener {
-
-    private var counterTransition = 0
+class SecondActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,14 +16,6 @@ class SecondActivity : AppCompatActivity(), FirstFragment.OnFragmentInteractionL
             val fragment = FirstFragment.newInstance()
             replaceFragment(fragment, getString(R.string.tag_fragment_first))
         }
-
-        counterTransition = intent.getIntExtra("counterTransition", 0)
-    }
-
-    override fun setTransitionCounter() {
-        val firstFragment =
-            supportFragmentManager.findFragmentByTag(getString(R.string.tag_fragment_first)) as FirstFragment?
-        firstFragment?.updateTransitionCounter(counterTransition)
     }
 
     fun replaceFragment(fragment: Fragment, tag: String) {
@@ -36,7 +27,6 @@ class SecondActivity : AppCompatActivity(), FirstFragment.OnFragmentInteractionL
     override fun onBackPressed() {
         super.onBackPressed()
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("counterTransition", counterTransition)
         startActivity(intent)
         finish()
     }
