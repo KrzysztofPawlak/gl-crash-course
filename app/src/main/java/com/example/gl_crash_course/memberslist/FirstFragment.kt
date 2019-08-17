@@ -25,16 +25,16 @@ class FirstFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_first, container, false)
 
+        val layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        binding.listRecyclerView.adapter = adapter
+        binding.listRecyclerView.layoutManager = layoutManager
+
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        val layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        binding.listRecyclerView.adapter = adapter
-        binding.listRecyclerView.layoutManager = layoutManager
 
         model = ViewModelProviders.of(this).get(MemberViewModel::class.java)
 

@@ -1,49 +1,37 @@
 package com.example.gl_crash_course.memberslist
 
+
 import android.app.Application
-import android.os.Handler
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.example.gl_crash_course.service.MemberService
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 class MemberViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var mutableMembers: MutableLiveData<ArrayList<Member>> = MutableLiveData()
+    private var service: MemberService = MemberService()
 
-    init {
-        mutableMembers.value = arrayListOf()
+    private var parentJob = Job()
+    private val coroutineContext: CoroutineContext get() = parentJob + Dispatchers.Main
+    private val scope = CoroutineScope(coroutineContext)
+
+    private val mutableMembers by lazy {
+        val liveData = MutableLiveData<ArrayList<Member>>()
         getAll()
-        append()
-    }
-
-    private fun updateAll(membersList: ArrayList<Member>) {
-        mutableMembers.value = membersList
+        return@lazy liveData
     }
 
     fun getMembers(): MutableLiveData<ArrayList<Member>> {
         return mutableMembers
     }
 
-    fun getAll() {
-        val delayMillis: Long = 2000
-        Handler().postDelayed({
-            val member1 = Member(1, "foo", "bar", "baz")
-            val member3 = Member(3, "foo", "bar", "baz")
-            val member2 = Member(2, "baz", "bar", "foo")
-            this.updateAll(arrayListOf(member1, member2, member3))
-        }, delayMillis)
-    }
-
-    fun append() {
-        val delayMillis: Long = 5000
-        Handler().postDelayed({
-            val member3 = Member(5, "foo", "bar", "baz")
-            val member4 = Member(6, "baz", "bar", "foo")
-            mutableMembers.value?.addAll((arrayListOf(member3, member4)))
-            mutableMembers.notifyObserver()
-        }, delayMillis)
-    }
-
-    fun <T> MutableLiveData<T>.notifyObserver() {
-        this.value = this.value
+    private fun getAll() {
+        var members: ArrayList<Member>
+        scope.async {
+            val results = async { service.getAllMembers() }
+            members = results.await()
+            mutableMembers.value = members
+        }
     }
 }
