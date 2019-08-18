@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Apex Weather</string>
+    <string name="btnStartFirstFragment">Start first fragment</string>
+    <string name="btnStartSecondFragment">Start second fragment</string>
+    <string name="fragment_first_text">First fragment</string>
+    <string name="fragment_first_text_transition">"No. of transitions : "</string>
+    <string name="fragment_second_text">Second fragment</string>
+</resources>

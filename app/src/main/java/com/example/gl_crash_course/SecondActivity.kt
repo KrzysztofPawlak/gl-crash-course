@@ -9,6 +9,7 @@ import com.example.gl_crash_course.memberslist.FirstFragment
 class SecondActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
 

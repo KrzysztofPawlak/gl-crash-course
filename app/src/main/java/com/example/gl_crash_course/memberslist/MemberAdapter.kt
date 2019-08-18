@@ -29,6 +29,7 @@ class MemberAdapter : RecyclerView.Adapter<MemberAdapter.ViewHolder>() {
     }
 
     class ViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(binding: ViewDataBinding, member: Member) {
             when (binding) {
                 is ListItemBinding -> {
@@ -38,6 +39,7 @@ class MemberAdapter : RecyclerView.Adapter<MemberAdapter.ViewHolder>() {
                 }
             }
         }
+
     }
 
     fun updateMembers(updatedList: List<Member>) {

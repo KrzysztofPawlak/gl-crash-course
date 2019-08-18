@@ -1,19 +1,19 @@
 <resources>
-    <string name="app_name">gl-crash-course</string>
+    <string name="app_name">Apex Pogoda</string>
     <string name="fragment_first_text_transition">Ilość przejść :</string>
 
     <!-- textView -->
-    <string name="fragment_first_text">First fragment</string>
-    <string name="fragment_second_text">Second fragment</string>
+    <string name="fragment_first_text">Pierwszy fragment</string>
+    <string name="fragment_second_text">Drugi framgent</string>
     <string name="course_name">Android crash course</string>
     <string name="author">Krzysztof studio</string>
 
     <!-- fragments tags -->
-    <string name="tag_fragment_first">FirstFragment</string>
-    <string name="tag_fragment_second">SecondFragment</string>
+    <string name="tag_fragment_first" translatable="false">FirstFragment</string>
+    <string name="tag_fragment_second" translatable="false">SecondFragment</string>
 
     <!-- buttons -->
-    <string name="btnStartFirstFragment">Start first fragment</string>
-    <string name="btnStartSecondFragment">Start second fragment</string>
+    <string name="btnStartFirstFragment">Rozpocznij pierwszy fragment</string>
+    <string name="btnStartSecondFragment">Start second Rozpocznij drugi fragment</string>
 
 </resources>
