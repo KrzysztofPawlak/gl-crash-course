@@ -4,9 +4,16 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.example.gl_crash_course.memberslist.FirstFragment
 
-class SecondActivity : AppCompatActivity() {
+class SecondActivity : AppCompatActivity(), VisitedInterface {
+
+    lateinit var model: VisitedViewModel
+
+    override fun isVisited(id: Int): Boolean {
+        return model.isVisited(id)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,6 +23,8 @@ class SecondActivity : AppCompatActivity() {
             val fragment = FirstFragment.newInstance()
             replaceFragment(fragment, getString(R.string.tag_fragment_first))
         }
+
+        model = ViewModelProviders.of(this).get(VisitedViewModel::class.java)
     }
 
     fun replaceFragment(fragment: Fragment, tag: String) {

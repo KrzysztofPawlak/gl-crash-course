@@ -11,13 +11,28 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gl_crash_course.R
+import com.example.gl_crash_course.SecondActivity
+import com.example.gl_crash_course.SecondFragment
 import com.example.gl_crash_course.databinding.FragmentFirstBinding
 
-class FirstFragment : Fragment() {
+class FirstFragment : Fragment(), MemberAdapter.OnMemberClickListener, MemberAdapter.VisitedInterface {
+
+    override fun isVisited(id: Int): Boolean {
+        return (activity as SecondActivity).model.isVisited(id)
+    }
+
+    override fun onMemberClick(id: Int) {
+        (activity as SecondActivity).model.markAsVisited(id)
+        val bundle = Bundle()
+        bundle.putInt("id", id)
+        val fragment = SecondFragment.newInstance()
+        fragment.arguments = bundle
+        (activity as SecondActivity).replaceFragment(fragment, getString(R.string.tag_fragment_first))
+    }
 
     private lateinit var model: MemberViewModel
     private lateinit var binding: FragmentFirstBinding
-    private val adapter = MemberAdapter()
+    private val adapter = MemberAdapter(this, this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

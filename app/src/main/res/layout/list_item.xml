@@ -3,42 +3,49 @@
     <data>
         <variable
                 name="name"
-                type="String" />
+                type="String"/>
 
         <variable
                 name="position"
-                type="String" />
+                type="String"/>
 
         <variable
                 name="url"
-                type="String" />
-    </data>
-        <com.google.android.material.card.MaterialCardView
-                android:id="@+id/list_item"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                type="String"/>
 
-                <ImageView
-                        android:id="@+id/iv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:src="@mipmap/ic_launcher" android:contentDescription="TODO"/>
-                <TextView
-                        android:id="@+id/tvName"
-                        android:text="@{name}"
-                        android:layout_width="match_parent"
-                        android:layout_toRightOf="@+id/iv"
-                        android:layout_height="wrap_content"/>
-                <TextView
-                        android:id="@+id/tvPosition"
-                        android:text="@{position}"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/iv"
-                        android:layout_below="@+id/tvName"/>
-            </RelativeLayout>
-        </com.google.android.material.card.MaterialCardView>
+        <variable name="id" type="Integer"/>
+
+        <variable
+                name="listener"
+                type="com.example.gl_crash_course.memberslist.MemberAdapter.OnMemberClickListener"/>
+    </data>
+    <com.google.android.material.card.MaterialCardView
+            android:id="@+id/list_item"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> listener.onMemberClick(id)}">>
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+
+            <ImageView
+                    android:id="@+id/iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:src="@mipmap/ic_launcher" android:contentDescription="TODO"/>
+            <TextView
+                    android:id="@+id/tvName"
+                    android:text="@{name}"
+                    android:layout_width="match_parent"
+                    android:layout_toRightOf="@+id/iv"
+                    android:layout_height="wrap_content"/>
+            <TextView
+                    android:id="@+id/tvPosition"
+                    android:text="@{position}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/iv"
+                    android:layout_below="@+id/tvName"/>
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

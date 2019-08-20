@@ -1,27 +1,46 @@
 package com.example.gl_crash_course
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
+import com.example.gl_crash_course.databinding.FragmentSecondBinding
 import com.example.gl_crash_course.memberslist.FirstFragment
-import kotlinx.android.synthetic.main.fragment_second.view.*
 
 class SecondFragment : Fragment() {
+
+    private lateinit var binding: FragmentSecondBinding
+    private lateinit var model: MemberDetalViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_second, container, false)
 
-        view.btnStartFirstFragment.setOnClickListener {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_second, container, false)
+
+        binding.btnStartFirstFragment.setOnClickListener {
             val fragment = FirstFragment.newInstance()
             (activity as SecondActivity).replaceFragment(fragment, getString(R.string.tag_fragment_first))
         }
 
-        return view
+        model = ViewModelProviders.of(this).get(MemberDetalViewModel::class.java)
+
+        val id = arguments?.getInt("id")
+
+        if (id != null) {
+            model.getOne(id)
+        }
+
+        binding.name = model.name
+        binding.position = model.position
+        binding.url = model.url
+
+        binding.lifecycleOwner = viewLifecycleOwner
+        return binding.root
     }
 
     companion object {
