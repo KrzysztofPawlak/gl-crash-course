@@ -7,7 +7,7 @@ import com.example.gl_crash_course.service.MemberService
 
 class MemberDetalViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var service: MemberService = MemberService()
+    private var service: MemberService = MemberService(application)
 
     lateinit var name: String
     lateinit var position: String
