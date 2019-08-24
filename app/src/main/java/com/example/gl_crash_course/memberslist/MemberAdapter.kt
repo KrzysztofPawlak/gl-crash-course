@@ -4,8 +4,13 @@ import androidx.databinding.ViewDataBinding
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.gl_crash_course.databinding.ListItemBinding
 import kotlinx.android.synthetic.main.list_item.view.*
 
