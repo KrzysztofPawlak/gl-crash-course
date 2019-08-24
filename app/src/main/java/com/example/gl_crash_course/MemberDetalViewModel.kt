@@ -11,12 +11,12 @@ class MemberDetalViewModel(application: Application) : AndroidViewModel(applicat
 
     lateinit var name: String
     lateinit var position: String
-    lateinit var url: String
+    lateinit var avatar: String
 
     fun getOne(id: Int) {
         val member = service.getOne(id)
         name = member.name
         position = member.position
-        url = member.url
+        avatar = member.avatar
     }
 }

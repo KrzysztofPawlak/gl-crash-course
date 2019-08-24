@@ -10,7 +10,7 @@
                 type="String"/>
 
         <variable
-                name="url"
+                name="avatar"
                 type="String"/>
 
         <variable name="id" type="Integer"/>
