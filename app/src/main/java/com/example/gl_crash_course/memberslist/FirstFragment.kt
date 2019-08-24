@@ -55,6 +55,15 @@ class FirstFragment : Fragment(), MemberAdapter.OnMemberClickListener, MemberAda
         model.getMembers().observe(viewLifecycleOwner, Observer<List<Member>> { memberList ->
             adapter.updateMembers(memberList)
         })
+
+        model.refresh.observe(viewLifecycleOwner, Observer {
+            binding.firstFragment.isRefreshing = it
+        })
+
+        binding.firstFragment.setOnRefreshListener {
+            model.incrementOffset()
+            model.getSubset()
+        }
     }
 
     companion object {

@@ -18,23 +18,26 @@ class MemberService(private val context: Context) {
         return arrayListOf()
     }
 
-    inline fun <reified T> fromJson(json: String): T {
+    private inline fun <reified T> fromJson(json: String): T {
         return Gson().fromJson(json, object : TypeToken<T>() {}.type)
     }
 
-    suspend fun getAllMembers(): ArrayList<Member> {
+    suspend fun getSubset(offset: Int, limit: Int): ArrayList<Member> {
+        val from = offset * limit
+        val to = from + limit
+
         val delayMillis: Long = 2000
 
         delay(delayMillis)
 
-        return getArrayOfMembers()
+        return ArrayList(getArrayOfMembers().subList(from, to))
     }
 
     fun getOne(idToFind: Int): Member {
         return getArrayOfMembers().single { member -> member.id == idToFind }
     }
 
-    fun readJsonAsString(): String? {
+    private fun readJsonAsString(): String? {
         var json: String? = null
 
         try {

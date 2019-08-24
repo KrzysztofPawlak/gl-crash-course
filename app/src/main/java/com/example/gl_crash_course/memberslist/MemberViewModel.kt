@@ -15,10 +15,13 @@ class MemberViewModel(application: Application) : AndroidViewModel(application) 
     private var parentJob = Job()
     private val coroutineContext: CoroutineContext get() = parentJob + Dispatchers.Main
     private val scope = CoroutineScope(coroutineContext)
+    private val limit = 10
+    private var currentOffset = 0
+    var refresh = MutableLiveData<Boolean>()
 
     private val mutableMembers by lazy {
         val liveData = MutableLiveData<ArrayList<Member>>()
-        getAll()
+        getSubset()
         return@lazy liveData
     }
 
@@ -26,12 +29,22 @@ class MemberViewModel(application: Application) : AndroidViewModel(application) 
         return mutableMembers
     }
 
-    private fun getAll() {
+    fun incrementOffset() {
+        currentOffset += 1
+    }
+
+    fun getSubset() {
         var members: ArrayList<Member>
         scope.async {
-            val results = async { service.getAllMembers() }
+            val results = async { service.getSubset(currentOffset, limit) }
             members = results.await()
-            mutableMembers.value = members
-        }
+            mutableMembers += members
+        }.invokeOnCompletion { refresh.value = false }
+    }
+
+    operator fun <T> MutableLiveData<ArrayList<T>>.plusAssign(values: List<T>) {
+        val value = this.value ?: arrayListOf()
+        value.addAll(values)
+        this.value = value
     }
 }
