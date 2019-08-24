@@ -37,7 +37,7 @@ class SecondFragment : Fragment() {
 
         binding.name = model.name
         binding.position = model.position
-        binding.url = model.url
+        binding.avatar = model.avatar
 
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root

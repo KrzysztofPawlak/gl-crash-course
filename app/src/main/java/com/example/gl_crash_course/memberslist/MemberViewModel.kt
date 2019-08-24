@@ -10,7 +10,7 @@ import kotlin.coroutines.CoroutineContext
 
 class MemberViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var service: MemberService = MemberService()
+    private var service: MemberService = MemberService(application)
 
     private var parentJob = Job()
     private val coroutineContext: CoroutineContext get() = parentJob + Dispatchers.Main

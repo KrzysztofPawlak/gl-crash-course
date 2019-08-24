@@ -50,7 +50,7 @@ class MemberAdapter(private val callback: OnMemberClickListener, private val cal
                     binding.id = member.id
                     binding.name = member.name
                     binding.position = member.position
-                    binding.url = member.url
+                    binding.avatar = member.avatar
                     binding.listener = callback
                 }
             }

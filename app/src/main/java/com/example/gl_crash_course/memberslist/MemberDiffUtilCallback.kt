@@ -25,7 +25,7 @@ class MemberDiffUtilCallback(private val memberList: List<Member>, private val u
 
         val isNameTheSame = oldMember.name == updatedMember.name
         val isPositionTheSame = oldMember.position == updatedMember.position
-        val isUrlTheSame = oldMember.url == updatedMember.url
+        val isUrlTheSame = oldMember.avatar == updatedMember.avatar
 
         return isNameTheSame && isPositionTheSame && isUrlTheSame
     }
