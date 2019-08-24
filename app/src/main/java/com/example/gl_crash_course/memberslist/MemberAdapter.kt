@@ -1,9 +1,9 @@
 package com.example.gl_crash_course.memberslist
 
+import androidx.databinding.ViewDataBinding
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gl_crash_course.databinding.ListItemBinding

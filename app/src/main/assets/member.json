@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "Michał Mikołajewski",
+    "position": "Android Developer",
+    "avatar": "https://media.licdn.com/dms/image/C4D03AQEFLqALEf0xhA/profiledisplayphoto-shrink_200_200/0?e=1571270400&v=beta&t=Vqnd9k52yTXVF-3JPrS_HqtyafOMbJNBRRaRrDtbZgw"
+  },
+  {
+    "id": 2,
+    "name": "Bartosz Ostrowski",
+    "position": "Lead Software Engineer",
+    "avatar": "https://media.licdn.com/dms/image/C4D03AQFG8ar8SlpAtQ/profiledisplayphoto-shrink_800_800/0?e=1571270400&v=beta&t=AR0xtUZMwxtg3pMEm8tfs3C45y_MSz4imRYqhj9bT0"
+  }
+]
