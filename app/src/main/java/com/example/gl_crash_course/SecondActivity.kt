@@ -20,16 +20,43 @@ class SecondActivity : AppCompatActivity(), VisitedInterface {
         setContentView(R.layout.activity_second)
 
         if (savedInstanceState == null) {
-            val fragment = FirstFragment.newInstance()
-            replaceFragment(fragment, getString(R.string.tag_fragment_first))
+            createFragmentIfNeeded(null)
         }
 
         model = ViewModelProviders.of(this).get(VisitedViewModel::class.java)
     }
 
-    fun replaceFragment(fragment: Fragment, tag: String) {
+    private fun addFragment(fragment: Fragment, tag: String) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragment_container, fragment, tag)
+        fragmentTransaction.add(R.id.fragment_container, fragment, tag)
+        fragmentTransaction.commitNow()
+    }
+
+    fun createFragmentIfNeeded(fragment: Fragment?, bundle: Bundle = Bundle.EMPTY) {
+        if (fragment == null) {
+            addFragment(FirstFragment.newInstance(), getString(R.string.tag_fragment_first))
+        }
+        if (fragment is FirstFragment && supportFragmentManager.findFragmentByTag(getString(R.string.tag_fragment_second)) == null) {
+            val secondFragment = SecondFragment.newInstance()
+            secondFragment.arguments = bundle
+            addFragment(secondFragment, getString(R.string.tag_fragment_second))
+        }
+    }
+
+    fun switchFragment(fragment: Fragment, bundle: Bundle = Bundle.EMPTY) {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+
+        if (fragment is FirstFragment) {
+            val fragmentSecond = supportFragmentManager.findFragmentByTag(getString(R.string.tag_fragment_second))!!
+            fragmentSecond.arguments = bundle
+            fragmentTransaction.detach(fragment)
+            fragmentTransaction.attach(fragmentSecond)
+        }
+        if (fragment is SecondFragment) {
+            fragmentTransaction.detach(fragment)
+            fragmentTransaction.attach(supportFragmentManager.findFragmentByTag(getString(R.string.tag_fragment_first))!!)
+        }
+
         fragmentTransaction.commit()
     }
 

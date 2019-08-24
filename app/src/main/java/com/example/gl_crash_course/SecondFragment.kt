@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.gl_crash_course.databinding.FragmentSecondBinding
-import com.example.gl_crash_course.memberslist.FirstFragment
 
 class SecondFragment : Fragment() {
 
@@ -23,8 +22,7 @@ class SecondFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_second, container, false)
 
         binding.btnStartFirstFragment.setOnClickListener {
-            val fragment = FirstFragment.newInstance()
-            (activity as SecondActivity).replaceFragment(fragment, getString(R.string.tag_fragment_first))
+            (activity as SecondActivity).switchFragment(this)
         }
 
         model = ViewModelProviders.of(this).get(MemberDetalViewModel::class.java)

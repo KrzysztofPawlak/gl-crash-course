@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gl_crash_course.R
 import com.example.gl_crash_course.SecondActivity
-import com.example.gl_crash_course.SecondFragment
 import com.example.gl_crash_course.databinding.FragmentFirstBinding
 
 class FirstFragment : Fragment(), MemberAdapter.OnMemberClickListener, MemberAdapter.VisitedInterface {
@@ -25,9 +24,9 @@ class FirstFragment : Fragment(), MemberAdapter.OnMemberClickListener, MemberAda
         (activity as SecondActivity).model.markAsVisited(id)
         val bundle = Bundle()
         bundle.putInt("id", id)
-        val fragment = SecondFragment.newInstance()
-        fragment.arguments = bundle
-        (activity as SecondActivity).replaceFragment(fragment, getString(R.string.tag_fragment_first))
+
+        (activity as SecondActivity).createFragmentIfNeeded(this, bundle)
+        (activity as SecondActivity).switchFragment(this, bundle)
     }
 
     private lateinit var model: MemberViewModel
