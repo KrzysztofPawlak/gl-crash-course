@@ -13,7 +13,7 @@
     <string name="tag_fragment_second">SecondFragment</string>
 
     <!-- buttons -->
-    <string name="btnStartFirstFragment">Back To First Fragment</string>
+    <string name="btnStartFirstFragment">Back To List</string>
     <string name="btnStartSecondFragment">Start second fragment</string>
 
 </resources>

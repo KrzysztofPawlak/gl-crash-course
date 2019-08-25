@@ -12,33 +12,38 @@
             tools:context=".SecondFragment"
             android:weightSum="10"
             android:orientation="vertical">
-            <ImageView
-                    android:id="@+id/iv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:src="@mipmap/ic_launcher"
-                    android:contentDescription="TODO"
-                    android:layout_weight="6"
-                    android:imageUrl="@{avatar}"/>
-            <TextView
-                    android:id="@+id/tvName"
-                    android:text="@{name}"
-                    android:layout_width="match_parent"
-                    android:layout_toRightOf="@+id/iv"
-                    android:layout_height="wrap_content"/>
-            <TextView
-                    android:id="@+id/tvPosition"
-                    android:text="@{position}"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/iv"
-                    android:layout_below="@+id/tvName"/>
+        <ImageView
+                android:id="@+id/iv"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_alignParentTop="true"
+                android:src="@mipmap/ic_launcher"
+                android:contentDescription="TODO"
+                android:layout_weight="6"
+                android:imageUrl="@{avatar}"
+                android:layout_gravity="center"/>
+        <TextView
+                android:id="@+id/tvName"
+                android:text="@{name}"
+                android:layout_width="match_parent"
+                android:layout_toRightOf="@+id/iv"
+                android:layout_height="wrap_content"
+                android:gravity="center"/>
+        <TextView
+                android:id="@+id/tvPosition"
+                android:text="@{position}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/iv"
+                android:layout_below="@+id/tvName"
+                android:gravity="center"/>
         <Button
                 android:text="@string/btnStartFirstFragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/btnStartFirstFragment" android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"/>
+                android:id="@+id/btnStartFirstFragment"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_gravity="center"/>
     </LinearLayout>
 </layout>
