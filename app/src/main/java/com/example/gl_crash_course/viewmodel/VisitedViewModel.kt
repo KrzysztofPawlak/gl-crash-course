@@ -1,4 +1,4 @@
-package com.example.gl_crash_course
+package com.example.gl_crash_course.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

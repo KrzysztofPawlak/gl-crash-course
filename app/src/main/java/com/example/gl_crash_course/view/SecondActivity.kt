@@ -1,13 +1,17 @@
-package com.example.gl_crash_course
+package com.example.gl_crash_course.view
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.example.gl_crash_course.memberslist.FirstFragment
+import com.example.gl_crash_course.R
+import com.example.gl_crash_course.forecastlist.view.FirstFragment
+import com.example.gl_crash_course.forecastlist.view.ForecastAdapter
+import com.example.gl_crash_course.viewmodel.VisitedViewModel
+import com.example.gl_crash_course.weatherdetail.view.SecondFragment
 
-class SecondActivity : AppCompatActivity(), VisitedInterface {
+class SecondActivity : AppCompatActivity(), ForecastAdapter.VisitedInterface {
 
     lateinit var model: VisitedViewModel
 

@@ -1,9 +1,11 @@
-package com.example.gl_crash_course
+package com.example.gl_crash_course.splash.view
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
+import com.example.gl_crash_course.view.MainActivity
+import com.example.gl_crash_course.R
 
 class SplashScreenActivity : AppCompatActivity() {
 
