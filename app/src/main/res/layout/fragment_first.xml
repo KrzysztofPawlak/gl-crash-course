@@ -7,7 +7,7 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".memberslist.FirstFragment"
+            tools:context=".forecastlist.view.FirstFragment"
             android:id="@+id/first_fragment">
 
         <androidx.recyclerview.widget.RecyclerView android:id="@+id/list_recycler_view"

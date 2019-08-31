@@ -1,49 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layout2">
     <data>
-        <variable name="name" type="String"/>
-        <variable name="position" type="String"/>
-        <variable name="avatar" type="String"/>
+        <variable name="model" type="com.example.gl_crash_course.weatherdetail.model.CityWeatherDetalViewModel"/>
     </data>
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".SecondFragment"
+            tools:context=".weatherdetail.view.SecondFragment"
             android:weightSum="10"
             android:orientation="vertical">
         <ImageView
                 android:id="@+id/iv"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:layout_alignParentTop="true"
+                android:layout_width="120sp"
+                android:layout_height="120sp"
                 android:src="@mipmap/ic_launcher"
                 android:contentDescription="TODO"
                 android:layout_weight="6"
-                android:imageUrl="@{avatar}"
-                android:layout_gravity="center"/>
+                android:imageUrl='@{model.liveData.weather[0].icon ?? ""}'
+                android:layout_gravity="center_horizontal" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintVertical_bias="0.092"/>
         <TextView
                 android:id="@+id/tvName"
-                android:text="@{name}"
+                android:text='@{"city: " + model.liveData.name}'
+                android:paddingHorizontal="@dimen/weater_detal_padding_text"
+                app:layout_constraintTop_toBottomOf="@+id/iv"
                 android:layout_width="match_parent"
-                android:layout_toRightOf="@+id/iv"
                 android:layout_height="wrap_content"
-                android:gravity="center"/>
+                android:gravity="start"
+                android:textSize="@dimen/weater_detal_font_size"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"
+                app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.318"/>
         <TextView
-                android:id="@+id/tvPosition"
-                android:text="@{position}"
+                android:id="@+id/tvDesc"
+                android:text='@{"description: " + model.liveData.weather[0].description}'
+                android:paddingHorizontal="@dimen/weater_detal_padding_text"
+                app:layout_constraintTop_toBottomOf="@+id/tvName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/iv"
-                android:layout_below="@+id/tvName"
-                android:gravity="center"/>
-        <Button
-                android:text="@string/btnStartFirstFragment"
-                android:layout_width="wrap_content"
+                android:gravity="start"
+                android:textSize="@dimen/weater_detal_font_size"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintVertical_bias="0.072" android:layout_marginTop="8dp"/>
+        <TextView
+                android:id="@+id/tvTemp"
+                android:text='@{"temperature: " + Double.toString(model.liveData.main.temp)}'
+                android:paddingHorizontal="@dimen/weater_detal_padding_text"
+                app:layout_constraintTop_toBottomOf="@+id/tvDesc"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="start"
+                android:textSize="@dimen/weater_detal_font_size"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"
+                app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.095"/>
+        <TextView
+                android:id="@+id/tvPressure"
+                android:text='@{"pressure: " + Integer.toString(model.liveData.main.pressure)}'
+                android:paddingHorizontal="@dimen/weater_detal_padding_text"
+                app:layout_constraintTop_toBottomOf="@+id/tvTemp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:textSize="@dimen/weater_detal_font_size"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintVertical_bias="0.121" android:layout_marginTop="8dp"/>
+        <TextView
+                android:id="@+id/tvHumidity"
+                android:text='@{"humidity: " + Integer.toString(model.liveData.main.humidity)}'
+                android:paddingHorizontal="@dimen/weater_detal_padding_text"
+                app:layout_constraintTop_toBottomOf="@+id/tvPressure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:textSize="@dimen/weater_detal_font_size"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintVertical_bias="0.137" android:layout_marginTop="8dp"/>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="@string/btnStartFirstFragment"
+                android:gravity="center_horizontal"
+                android:textColor="#FFFFFF"
                 android:id="@+id/btnStartFirstFragment"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_gravity="center"/>
-    </LinearLayout>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

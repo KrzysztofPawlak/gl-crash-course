@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="course_name_dim">24dp</dimen>
-    <dimen name="autor_dim">12dp</dimen>
+    <dimen name="course_name_dim">24sp</dimen>
+    <dimen name="autor_dim">12sp</dimen>
+    <dimen name="weater_detal_font_size">20sp</dimen>
+    <dimen name="weater_detal_padding_text">30sp</dimen>
 </resources>

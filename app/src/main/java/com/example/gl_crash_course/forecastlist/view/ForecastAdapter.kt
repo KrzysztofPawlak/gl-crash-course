@@ -1,4 +1,4 @@
-package com.example.gl_crash_course.memberslist
+package com.example.gl_crash_course.forecastlist.view
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -7,15 +7,17 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gl_crash_course.databinding.ListItemBinding
+import com.example.gl_crash_course.forecastlist.CityDiffUtilCallback
+import com.example.gl_crash_course.model.City
 import kotlinx.android.synthetic.main.list_item.view.*
 
-class MemberAdapter(private val callback: OnMemberClickListener, private val callbackVisited: VisitedInterface) :
-    RecyclerView.Adapter<MemberAdapter.ViewHolder>() {
+class ForecastAdapter(private val callback: OnCityClickListener, private val callbackVisited: VisitedInterface) :
+    RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
 
-    private var memberList: List<Member> = ArrayList()
+    private var forecastList: List<City> = ArrayList()
 
-    interface OnMemberClickListener {
-        fun onMemberClick(id: Int)
+    interface OnCityClickListener {
+        fun onCityClick(id: Int)
     }
 
     interface VisitedInterface {
@@ -25,41 +27,48 @@ class MemberAdapter(private val callback: OnMemberClickListener, private val cal
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ListItemBinding.inflate(inflater)
+        binding.listItem.minimumHeight = parent.measuredHeight / 3
+
         return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
-        return memberList.size
+        return forecastList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (position < itemCount) {
-            holder.bind(holder.binding, memberList[position], callback)
+            holder.bind(holder.binding, forecastList[position], callback)
             holder.binding.executePendingBindings()
 
-            if (callbackVisited.isVisited(memberList[position].id)) {
+            if (callbackVisited.isVisited(forecastList[position].id)) {
                 holder.itemView.list_item.setBackgroundColor(Color.GRAY)
             }
         }
     }
 
     class ViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(binding: ViewDataBinding, member: Member, callback: OnMemberClickListener) {
+        fun bind(binding: ViewDataBinding, city: City, callback: OnCityClickListener) {
             when (binding) {
                 is ListItemBinding -> {
-                    binding.id = member.id
-                    binding.name = member.name
-                    binding.position = member.position
-                    binding.avatar = member.avatar
+                    binding.id = city.id
+                    binding.name = city.name
+                    binding.temp = city.main.temp.toString()
+                    binding.icon = city.weather[0].icon
                     binding.listener = callback
                 }
             }
         }
     }
 
-    fun updateMembers(updatedList: List<Member>) {
-        val result = DiffUtil.calculateDiff(MemberDiffUtilCallback(memberList, updatedList))
-        memberList = updatedList.toMutableList()
+    fun updateForecast(updatedList: List<City>) {
+        val result = DiffUtil.calculateDiff(
+            CityDiffUtilCallback(
+                forecastList,
+                updatedList
+            )
+        )
+        forecastList = updatedList.toMutableList()
         result.dispatchUpdatesTo(this)
     }
 }
