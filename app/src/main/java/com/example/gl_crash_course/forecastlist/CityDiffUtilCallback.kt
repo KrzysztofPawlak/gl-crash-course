@@ -1,9 +1,9 @@
 package com.example.gl_crash_course.forecastlist
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.gl_crash_course.model.City
+import com.example.gl_crash_course.repository.dao.WeatherEntry
 
-class CityDiffUtilCallback(private val cityList: List<City>, private val updatedList: List<City>) :
+class CityDiffUtilCallback(private val cityList: List<WeatherEntry>, private val updatedList: List<WeatherEntry>) :
     DiffUtil.Callback() {
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldFoundedNearestForecast = cityList[oldItemPosition]
@@ -25,10 +25,11 @@ class CityDiffUtilCallback(private val cityList: List<City>, private val updated
         val updatedCity = updatedList[newItemPosition]
 
         val isNameTheSame = oldCity.name == updatedCity.name
-        val isTempTheSame = oldCity.main.temp.toString() == updatedCity.main.temp.toString()
-        val isIconTheSame = oldCity.weather[0].icon == updatedCity.weather[0].icon
+        val isTempTheSame = oldCity.temperature == updatedCity.temperature
+        val isIconTheSame = oldCity.icon == updatedCity.icon
+        val isTimeTheSame = oldCity.refreshed == updatedCity.refreshed
 
-        return isNameTheSame && isTempTheSame && isIconTheSame
+        return isNameTheSame && isTempTheSame && isIconTheSame && isTimeTheSame
     }
 
 }

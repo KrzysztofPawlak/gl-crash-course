@@ -11,10 +11,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gl_crash_course.R
+import com.example.gl_crash_course.repository.dao.WeatherEntry
 import com.example.gl_crash_course.view.SecondActivity
 import com.example.gl_crash_course.databinding.FragmentFirstBinding
 import com.example.gl_crash_course.forecastlist.viewmodel.ForecastViewModel
-import com.example.gl_crash_course.model.Forecast
 
 class FirstFragment : Fragment(), ForecastAdapter.OnCityClickListener,
     ForecastAdapter.VisitedInterface {
@@ -55,8 +55,8 @@ class FirstFragment : Fragment(), ForecastAdapter.OnCityClickListener,
 
         model = ViewModelProviders.of(this).get(ForecastViewModel::class.java)
 
-        model.getForecast().observe(viewLifecycleOwner, Observer<Forecast> { forecast ->
-            adapter.updateForecast(forecast.list)
+        model.getForecast().observe(viewLifecycleOwner, Observer<List<WeatherEntry>> { forecast ->
+            adapter.updateForecast(forecast)
         })
 
         model.refresh.observe(viewLifecycleOwner, Observer {
@@ -64,8 +64,7 @@ class FirstFragment : Fragment(), ForecastAdapter.OnCityClickListener,
         })
 
         binding.firstFragment.setOnRefreshListener {
-            model.incrementOffset()
-            model.getSubset()
+            model.refreshList()
         }
     }
 

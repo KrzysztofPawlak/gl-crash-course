@@ -6,15 +6,16 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gl_crash_course.ForecastApiConst.ADAPTER_SIZE_DIVIDE
+import com.example.gl_crash_course.repository.dao.WeatherEntry
 import com.example.gl_crash_course.databinding.ListItemBinding
 import com.example.gl_crash_course.forecastlist.CityDiffUtilCallback
-import com.example.gl_crash_course.model.City
 import kotlinx.android.synthetic.main.list_item.view.*
 
 class ForecastAdapter(private val callback: OnCityClickListener, private val callbackVisited: VisitedInterface) :
     RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
 
-    private var forecastList: List<City> = ArrayList()
+    private var forecastList: List<WeatherEntry> = ArrayList()
 
     interface OnCityClickListener {
         fun onCityClick(id: Int)
@@ -27,7 +28,7 @@ class ForecastAdapter(private val callback: OnCityClickListener, private val cal
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ListItemBinding.inflate(inflater)
-        binding.listItem.minimumHeight = parent.measuredHeight / 3
+        binding.listItem.minimumHeight = parent.measuredHeight / ADAPTER_SIZE_DIVIDE
 
         return ViewHolder(binding)
     }
@@ -48,20 +49,22 @@ class ForecastAdapter(private val callback: OnCityClickListener, private val cal
     }
 
     class ViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(binding: ViewDataBinding, city: City, callback: OnCityClickListener) {
+        fun bind(binding: ViewDataBinding, weatherEntry: WeatherEntry, callback: OnCityClickListener) {
             when (binding) {
                 is ListItemBinding -> {
-                    binding.id = city.id
-                    binding.name = city.name
-                    binding.temp = city.main.temp.toString()
-                    binding.icon = city.weather[0].icon
+                    binding.id = weatherEntry.id
+                    binding.idApi = weatherEntry.ipi_id // TODO: usunać
+                    binding.name = weatherEntry.name
+                    binding.temp = weatherEntry.temperature
+                    binding.icon = weatherEntry.icon
+                    binding.refreshed = weatherEntry.refreshed.toString()
                     binding.listener = callback
                 }
             }
         }
     }
 
-    fun updateForecast(updatedList: List<City>) {
+    fun updateForecast(updatedList: List<WeatherEntry>) {
         val result = DiffUtil.calculateDiff(
             CityDiffUtilCallback(
                 forecastList,

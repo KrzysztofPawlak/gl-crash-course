@@ -8,5 +8,7 @@ object ForecastApiConst {
     const val IMG_URL_PREFIX = "http://openweathermap.org/img/wn/"
     const val IMG_URL_POSTFIX = "@2x.png"
     const val UNITS: String = "metric"
-
+    const val UPDATE_TIME: Int = 2
+    const val ADAPTER_LIST_SIZE: Int = 10
+    const val ADAPTER_SIZE_DIVIDE: Int = 3
 }

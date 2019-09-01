@@ -16,6 +16,10 @@
 
         <variable name="id" type="Integer"/>
 
+        <variable name="id_api" type="Integer"/>
+
+        <variable name="refreshed" type="String"/>
+
         <variable
                 name="listener"
                 type="com.example.gl_crash_course.forecastlist.view.ForecastAdapter.OnCityClickListener"/>
@@ -32,7 +36,7 @@
             app:strokeColor="@color/colorAccent"
             app:strokeWidth="2dp"
             app:cardUseCompatPadding="true"
-            android:onClick="@{() -> listener.onCityClick(id)}">
+            android:onClick="@{() -> listener.onCityClick(id_api)}">
         <RelativeLayout android:layout_height="match_parent" android:layout_width="match_parent">
             <ImageView
                     android:id="@+id/iv"
@@ -54,6 +58,16 @@
                     android:textSize="@dimen/weater_detal_font_size"
                     android:layout_toEndOf="@id/iv"
                     android:layout_below="@id/tvName"
+                    android:paddingHorizontal="@dimen/weater_detal_padding_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"/>
+            <TextView
+                    android:id="@+id/tvRefreshDate"
+                    android:text="@{refreshed}"
+                    android:textSize="12sp"
+                    android:layout_toEndOf="@id/iv"
+                    android:layout_below="@id/tvTemp"
                     android:paddingHorizontal="@dimen/weater_detal_padding_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

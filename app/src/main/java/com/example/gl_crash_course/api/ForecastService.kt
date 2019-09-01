@@ -1,10 +1,10 @@
-package com.example.gl_crash_course.service.repository
+package com.example.gl_crash_course.api
 
 import android.content.Context
 import com.example.gl_crash_course.BuildConfig
 import com.example.gl_crash_course.ForecastApiConst
-import com.example.gl_crash_course.model.City
-import com.example.gl_crash_course.model.Forecast
+import com.example.gl_crash_course.api.model.City
+import com.example.gl_crash_course.api.model.Forecast
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Call
