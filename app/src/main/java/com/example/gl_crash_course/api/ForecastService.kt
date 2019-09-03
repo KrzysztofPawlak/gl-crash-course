@@ -32,25 +32,22 @@ class ForecastService(var context: Context) {
         forecastApi = retrofit.create(ForecastApi::class.java)
     }
 
-    fun getForecastForCities(callback: GetForecastCallback) {
-        forecastApi.findCitiesAround(
-            ForecastApiConst.LAT_SZCZECIN, ForecastApiConst.LON_SZCZECIN,
-            ForecastApiConst.CNT, BuildConfig.OpenWeatherAppKey, ForecastApiConst.UNITS
-        ).enqueue(object : Callback<Forecast> {
-            override fun onFailure(call: Call<Forecast>, t: Throwable?) { }
-
-            override fun onResponse(call: Call<Forecast>, response: Response<Forecast>) {
-                callback.onForecastLoaded(response.body())
-            }
-        })
-    }
-
     fun getWeatherById(id: String, callback: GetWeatherCallback) {
         forecastApi.getWeatherById(id, BuildConfig.OpenWeatherAppKey, ForecastApiConst.UNITS).enqueue(object : Callback<City> {
             override fun onFailure(call: Call<City>, t: Throwable?) { }
 
             override fun onResponse(call: Call<City>, response: Response<City>) {
                 callback.onWeatherLoaded(response.body())
+            }
+        })
+    }
+
+    fun getSetOfWeatherByIds(ids: String, callback: GetForecastCallback) {
+        forecastApi.getSetOfWeatherByIds(ids, BuildConfig.OpenWeatherAppKey, ForecastApiConst.UNITS).enqueue(object : Callback<Forecast> {
+            override fun onFailure(call: Call<Forecast>, t: Throwable?) { }
+
+            override fun onResponse(call: Call<Forecast>, response: Response<Forecast>) {
+                callback.onForecastLoaded(response.body())
             }
         })
     }

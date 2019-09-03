@@ -5,6 +5,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.gl_crash_course.ForecastApiConst
 import com.example.gl_crash_course.ForecastApiConst.ADAPTER_LIST_SIZE
 import com.example.gl_crash_course.ForecastApiConst.UPDATE_TIME
 import com.example.gl_crash_course.repository.dao.WeatherEntry
@@ -42,7 +43,7 @@ class ForecastViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun refreshList() {
-        getSubset()
+        getData()
     }
 
     private fun fetchIfNeeded(it: List<WeatherEntry>) {
@@ -53,7 +54,7 @@ class ForecastViewModel(application: Application) : AndroidViewModel(application
 
         var isOutdated = checkCurrentEntriesAreOutdated()
         if (it.size < ADAPTER_LIST_SIZE || isOutdated) {
-            getSubset()
+            getData()
         }
     }
 
@@ -65,8 +66,9 @@ class ForecastViewModel(application: Application) : AndroidViewModel(application
         forecastRepository.update(weatherEntry, this)
     }
 
-    fun getSubset() {
-        forecastService.getForecastForCities(this)
+    private fun getData() {
+        var ids: String = ForecastApiConst.PL_CITIES_IDS.map { entry -> entry.value }.joinToString(",")
+        forecastService.getSetOfWeatherByIds(ids, this)
     }
 
     override fun onForecastLoaded(forecast: Forecast?) {
@@ -94,7 +96,6 @@ class ForecastViewModel(application: Application) : AndroidViewModel(application
 
     private fun checkCurrentEntriesAreOutdated(): Boolean {
         return mutableForecast.value!!.any {
-            println(ChronoUnit.MINUTES.between(it.refreshed.toInstant(OffsetDateTime.now().offset), Instant.now()))
             ChronoUnit.MINUTES.between(it.refreshed.toInstant(OffsetDateTime.now().offset), Instant.now()) > UPDATE_TIME
         }
     }
