@@ -1,4 +1,4 @@
-package com.example.gl_crash_course.model
+package com.example.gl_crash_course.api.model
 
 
 import com.google.gson.annotations.SerializedName

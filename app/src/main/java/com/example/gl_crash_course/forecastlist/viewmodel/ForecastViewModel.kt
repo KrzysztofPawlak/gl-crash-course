@@ -3,31 +3,66 @@ package com.example.gl_crash_course.forecastlist.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.gl_crash_course.model.Forecast
-import com.example.gl_crash_course.service.repository.ForecastService
+import com.example.gl_crash_course.ForecastApiConst.ADAPTER_LIST_SIZE
+import com.example.gl_crash_course.ForecastApiConst.UPDATE_TIME
+import com.example.gl_crash_course.repository.dao.WeatherEntry
+import com.example.gl_crash_course.api.model.Forecast
+import com.example.gl_crash_course.repository.ForecastRepository
+import com.example.gl_crash_course.api.ForecastService
+import java.time.*
+import java.time.temporal.ChronoUnit
+import java.util.concurrent.atomic.AtomicInteger
 
 class ForecastViewModel(application: Application) : AndroidViewModel(application),
-    ForecastService.GetForecastCallback {
+    ForecastService.GetForecastCallback, ForecastRepository.DbOperationCallback {
 
-    private var forecastService: ForecastService = ForecastService(application)
+    private val forecastRepository = ForecastRepository(application)
+    private var forecastService: ForecastService =
+        ForecastService(application)
 
-    private val limit = 3
-    private var currentOffset = 0
+    private var counterCurrentOperationOnDb = AtomicInteger()
     var refresh = MutableLiveData<Boolean>()
 
-    private val mutableForecast by lazy {
-        val liveData = MutableLiveData<Forecast>()
-        getSubset()
-        return@lazy liveData
+    private val mutableForecast = MediatorLiveData<List<WeatherEntry>>()
+
+    init {
+        var dataFromDb = forecastRepository.allWeather
+        mutableForecast.addSource(dataFromDb) { result: List<WeatherEntry>? ->
+            result?.let {
+                mutableForecast.value = it
+                fetchIfNeeded(it)
+            }
+        }
     }
 
-    fun getForecast(): MutableLiveData<Forecast> {
+    fun getForecast(): MediatorLiveData<List<WeatherEntry>> {
         return mutableForecast
     }
 
-    fun incrementOffset() {
-        currentOffset += 1
+    fun refreshList() {
+        getSubset()
+    }
+
+    private fun fetchIfNeeded(it: List<WeatherEntry>) {
+        var allowedCurrentOperations = 0
+        if (counterCurrentOperationOnDb.get() != allowedCurrentOperations) {
+            return
+        }
+
+        var isOutdated = checkCurrentEntriesAreOutdated()
+        if (it.size < ADAPTER_LIST_SIZE || isOutdated) {
+            getSubset()
+        }
+    }
+
+    private fun insertWeather(weatherEntry: WeatherEntry) {
+        forecastRepository.insert(weatherEntry, this)
+    }
+
+    private fun updateWeather(weatherEntry: WeatherEntry) {
+        forecastRepository.update(weatherEntry, this)
     }
 
     fun getSubset() {
@@ -35,15 +70,41 @@ class ForecastViewModel(application: Application) : AndroidViewModel(application
     }
 
     override fun onForecastLoaded(forecast: Forecast?) {
-        val from = currentOffset * limit
-        var to = from + limit
 
-        if (to > forecast!!.list.size) {
-            to = forecast!!.list.size
+        val list = forecast!!.list.map {
+            WeatherEntry(0, it.id, it.name, it.main.temp.toString(), it.weather[0].icon, LocalDateTime.now())
         }
-        val trimForecast = Forecast(forecast.cod, limit, forecast!!.list.subList(0, to), forecast.message)
-        mutableForecast.value = trimForecast
+
+        list.stream()
+            .filter { isAlreadyExists(it.ipi_id) }
+            .forEach {
+                counterCurrentOperationOnDb.getAndIncrement()
+                updateWeather(it)
+            }
+
+        list.stream()
+            .filter { !isAlreadyExists(it.ipi_id) }
+            .forEach {
+                counterCurrentOperationOnDb.getAndIncrement()
+                insertWeather(it)
+            }
+
         refresh.value = false
+    }
+
+    private fun checkCurrentEntriesAreOutdated(): Boolean {
+        return mutableForecast.value!!.any {
+            println(ChronoUnit.MINUTES.between(it.refreshed.toInstant(OffsetDateTime.now().offset), Instant.now()))
+            ChronoUnit.MINUTES.between(it.refreshed.toInstant(OffsetDateTime.now().offset), Instant.now()) > UPDATE_TIME
+        }
+    }
+
+    private fun isAlreadyExists(searchingId: Int): Boolean {
+        return mutableForecast.value!!.any { it.ipi_id == searchingId }
+    }
+
+    override fun onFinishDb() {
+        counterCurrentOperationOnDb.getAndDecrement()
     }
 
 }

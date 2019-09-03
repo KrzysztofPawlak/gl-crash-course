@@ -4,13 +4,14 @@ package com.example.gl_crash_course.weatherdetail.model
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.gl_crash_course.model.City
-import com.example.gl_crash_course.service.repository.ForecastService
+import com.example.gl_crash_course.api.model.City
+import com.example.gl_crash_course.api.ForecastService
 
 class CityWeatherDetalViewModel(application: Application) : AndroidViewModel(application),
     ForecastService.GetWeatherCallback {
 
-    private var forecastService: ForecastService = ForecastService(application)
+    private var forecastService: ForecastService =
+        ForecastService(application)
 
     var liveData = MutableLiveData<City>()
 
