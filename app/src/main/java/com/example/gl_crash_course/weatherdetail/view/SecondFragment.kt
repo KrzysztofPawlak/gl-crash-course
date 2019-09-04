@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.gl_crash_course.R
+import com.example.gl_crash_course.citysettings.view.SettingsFragment
 import com.example.gl_crash_course.view.SecondActivity
 import com.example.gl_crash_course.databinding.FragmentSecondBinding
 import com.example.gl_crash_course.weatherdetail.model.CityWeatherDetalViewModel

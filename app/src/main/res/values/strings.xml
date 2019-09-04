@@ -11,9 +11,15 @@
     <!-- fragments tags -->
     <string name="tag_fragment_first">FirstFragment</string>
     <string name="tag_fragment_second">SecondFragment</string>
+    <string name="tag_fragment_settings">SettingsFragment</string>
 
     <!-- buttons -->
     <string name="btnStartFirstFragment">Back To List</string>
     <string name="btnStartSecondFragment">Start second fragment</string>
+
+    <string name="settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

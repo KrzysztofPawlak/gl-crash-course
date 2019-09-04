@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.gl_crash_course.R
+import com.example.gl_crash_course.citysettings.view.SettingsFragment
 import com.example.gl_crash_course.forecastlist.view.FirstFragment
 import com.example.gl_crash_course.forecastlist.view.ForecastAdapter
 import com.example.gl_crash_course.viewmodel.VisitedViewModel
 import com.example.gl_crash_course.weatherdetail.view.SecondFragment
+import kotlinx.android.synthetic.main.activity_second.*
 
 class SecondActivity : AppCompatActivity(), ForecastAdapter.VisitedInterface {
 
@@ -27,7 +29,18 @@ class SecondActivity : AppCompatActivity(), ForecastAdapter.VisitedInterface {
             createFragmentIfNeeded(null)
         }
 
+        fab.setOnClickListener {
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            var settingsFragment = SettingsFragment.newInstance()
+            fragmentTransaction.replace(R.id.fragment_container, settingsFragment)
+            fragmentTransaction.commit()
+        }
+
         model = ViewModelProviders.of(this).get(VisitedViewModel::class.java)
+    }
+
+    fun hideFloatingActionButton() {
+        fab.hide()
     }
 
     private fun addFragment(fragment: Fragment, tag: String) {
