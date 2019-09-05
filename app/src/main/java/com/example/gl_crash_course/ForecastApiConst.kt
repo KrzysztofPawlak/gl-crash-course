@@ -7,7 +7,7 @@ object ForecastApiConst {
     const val IMG_URL_POSTFIX = "@2x.png"
     const val UNITS: String = "metric"
     const val UPDATE_TIME: Int = 2
-    const val ADAPTER_LIST_SIZE: Int = 10
+    const val ADAPTER_LIST_SIZE: Int = 16
     const val ADAPTER_SIZE_DIVIDE: Int = 3
 
     val PL_CITIES_IDS = mapOf(

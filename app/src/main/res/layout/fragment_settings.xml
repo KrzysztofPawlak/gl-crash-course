@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".citysettings.view.SettingsFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    </data>
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
+            tools:context=".citysettings.view.SettingsFragment" android:orientation="vertical"
+            android:layout_weight="10">
 
-</FrameLayout>
+        <com.google.android.material.card.MaterialCardView
+                android:layout_height="match_parent" android:layout_width="match_parent" android:layout_weight="3"
+                app:strokeColor="@color/colorAccent"
+                app:strokeWidth="2dp"
+                app:cardUseCompatPadding="true">
+            <ListView
+                    android:id="@+id/listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true">
+            </ListView>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+                android:layout_height="match_parent" android:layout_width="match_parent" android:layout_weight="4"
+                app:strokeColor="@color/colorAccent"
+                app:strokeWidth="2dp"
+                app:cardUseCompatPadding="true">
+            <TextView
+                    android:text="wyszukaj i dodaj"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+                android:layout_height="match_parent" android:layout_width="match_parent" android:layout_weight="3"
+                app:strokeColor="@color/colorAccent"
+                app:strokeWidth="2dp"
+                app:cardUseCompatPadding="true">
+        <TextView
+                android:text="ostatnio dodane"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</layout>

@@ -53,6 +53,7 @@ class ForecastViewModel(application: Application) : AndroidViewModel(application
         }
 
         var isOutdated = checkCurrentEntriesAreOutdated()
+        println("isOutdated: " + isOutdated)
         if (it.size < ADAPTER_LIST_SIZE || isOutdated) {
             getData()
         }
