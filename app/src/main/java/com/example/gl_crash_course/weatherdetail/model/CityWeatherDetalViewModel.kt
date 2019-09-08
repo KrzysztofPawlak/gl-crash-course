@@ -10,8 +10,7 @@ import com.example.gl_crash_course.api.ForecastService
 class CityWeatherDetalViewModel(application: Application) : AndroidViewModel(application),
     ForecastService.GetWeatherCallback {
 
-    private var forecastService: ForecastService =
-        ForecastService(application)
+    private var forecastService: ForecastService = ForecastService(application)
 
     var liveData = MutableLiveData<City>()
 

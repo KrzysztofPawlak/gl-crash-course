@@ -53,7 +53,7 @@ class ForecastAdapter(private val callback: OnCityClickListener, private val cal
             when (binding) {
                 is ListItemBinding -> {
                     binding.id = weatherEntry.id
-                    binding.idApi = weatherEntry.ipi_id // TODO: usunać
+                    binding.idApi = weatherEntry.api_id // TODO: usunać
                     binding.name = weatherEntry.name
                     binding.temp = weatherEntry.temperature
                     binding.icon = weatherEntry.icon

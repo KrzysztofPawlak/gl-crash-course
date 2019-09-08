@@ -13,7 +13,7 @@ interface WeatherDao {
     @Query("SELECT * FROM pogoda_table")
     fun getAll(): LiveData<List<WeatherEntry>>
 
-    @Query("UPDATE pogoda_table SET temperature = :temperature, icon = :icon, refreshed = :refreshed WHERE ipi_id = :api_id")
+    @Query("UPDATE pogoda_table SET temperature = :temperature, icon = :icon, refreshed = :refreshed WHERE api_id = :api_id")
     fun update(temperature: String, icon: String, refreshed: LocalDateTime, api_id: Int)
 
 }

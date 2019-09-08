@@ -20,8 +20,7 @@ class ForecastViewModel(application: Application) : AndroidViewModel(application
     ForecastService.GetForecastCallback, ForecastRepository.DbOperationCallback {
 
     private val forecastRepository = ForecastRepository(application)
-    private var forecastService: ForecastService =
-        ForecastService(application)
+    private var forecastService: ForecastService = ForecastService(application)
 
     private var counterCurrentOperationOnDb = AtomicInteger()
     var refresh = MutableLiveData<Boolean>()
@@ -53,7 +52,6 @@ class ForecastViewModel(application: Application) : AndroidViewModel(application
         }
 
         var isOutdated = checkCurrentEntriesAreOutdated()
-        println("isOutdated: " + isOutdated)
         if (it.size < ADAPTER_LIST_SIZE || isOutdated) {
             getData()
         }
@@ -79,14 +77,14 @@ class ForecastViewModel(application: Application) : AndroidViewModel(application
         }
 
         list.stream()
-            .filter { isAlreadyExists(it.ipi_id) }
+            .filter { isAlreadyExists(it.api_id) }
             .forEach {
                 counterCurrentOperationOnDb.getAndIncrement()
                 updateWeather(it)
             }
 
         list.stream()
-            .filter { !isAlreadyExists(it.ipi_id) }
+            .filter { !isAlreadyExists(it.api_id) }
             .forEach {
                 counterCurrentOperationOnDb.getAndIncrement()
                 insertWeather(it)
@@ -102,7 +100,7 @@ class ForecastViewModel(application: Application) : AndroidViewModel(application
     }
 
     private fun isAlreadyExists(searchingId: Int): Boolean {
-        return mutableForecast.value!!.any { it.ipi_id == searchingId }
+        return mutableForecast.value!!.any { it.api_id == searchingId }
     }
 
     override fun onFinishDb() {

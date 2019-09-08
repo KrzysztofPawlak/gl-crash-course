@@ -2,16 +2,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-
+        <variable name="model" type="com.example.gl_crash_course.citysettings.viewmodel.SettingsViewModel"/>
     </data>
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".citysettings.view.SettingsFragment" android:orientation="vertical"
-            android:layout_weight="10">
+            android:weightSum="100">
 
         <com.google.android.material.card.MaterialCardView
-                android:layout_height="match_parent" android:layout_width="match_parent" android:layout_weight="3"
+                android:layout_height="match_parent" android:layout_width="match_parent" android:layout_weight="35"
                 app:strokeColor="@color/colorAccent"
                 app:strokeWidth="2dp"
                 app:cardUseCompatPadding="true">
@@ -25,25 +25,53 @@
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-                android:layout_height="match_parent" android:layout_width="match_parent" android:layout_weight="4"
+                android:layout_height="match_parent" android:layout_width="match_parent" android:layout_weight="25"
+                app:strokeColor="@color/colorAccent"
+                app:strokeWidth="2dp"
+                app:cardUseCompatPadding="true">
+
+            <LinearLayout android:layout_height="match_parent"
+                          android:layout_width="match_parent" android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="wyszukaj i dodaj">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@={model.searchedText}"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnSearch"
+                        android:onClick="@{() -> model.onShowData()}"
+                        android:text="Search"/>
+                <TextView
+                        android:id="@+id/tvResult"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnAdd"
+                        android:onClick="@{() -> model.onAddData()}"
+                        android:text="Add"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+                android:layout_height="match_parent" android:layout_width="match_parent" android:layout_weight="40"
                 app:strokeColor="@color/colorAccent"
                 app:strokeWidth="2dp"
                 app:cardUseCompatPadding="true">
             <TextView
-                    android:text="wyszukaj i dodaj"
+                    android:text="ostatnio dodane"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-                android:layout_height="match_parent" android:layout_width="match_parent" android:layout_weight="3"
-                app:strokeColor="@color/colorAccent"
-                app:strokeWidth="2dp"
-                app:cardUseCompatPadding="true">
-        <TextView
-                android:text="ostatnio dodane"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 </layout>

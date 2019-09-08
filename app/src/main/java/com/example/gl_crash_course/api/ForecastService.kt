@@ -42,6 +42,16 @@ class ForecastService(var context: Context) {
         })
     }
 
+    fun getWeatherByCityName(name: String, callback: GetWeatherByCityNameCallback) {
+        forecastApi.getWeatherByCityName(name, BuildConfig.OpenWeatherAppKey, ForecastApiConst.UNITS).enqueue(object : Callback<City> {
+            override fun onFailure(call: Call<City>, t: Throwable?) { }
+
+            override fun onResponse(call: Call<City>, response: Response<City>) {
+                callback.onWeatherLoaded(response.body())
+            }
+        })
+    }
+
     fun getSetOfWeatherByIds(ids: String, callback: GetForecastCallback) {
         forecastApi.getSetOfWeatherByIds(ids, BuildConfig.OpenWeatherAppKey, ForecastApiConst.UNITS).enqueue(object : Callback<Forecast> {
             override fun onFailure(call: Call<Forecast>, t: Throwable?) {
@@ -60,6 +70,10 @@ class ForecastService(var context: Context) {
     }
 
     interface GetWeatherCallback {
+        fun onWeatherLoaded(city: City?)
+    }
+
+    interface GetWeatherByCityNameCallback {
         fun onWeatherLoaded(city: City?)
     }
 }

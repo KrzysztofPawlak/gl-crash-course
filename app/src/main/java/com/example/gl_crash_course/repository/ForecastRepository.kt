@@ -26,7 +26,7 @@ class ForecastRepository(application: Application) {
 
     fun update(weatherEntry: WeatherEntry, callback: DbOperationCallback) = GlobalScope.launch(Dispatchers.Main){
         async(Dispatchers.IO) {
-            weatherDao?.update(weatherEntry.temperature, weatherEntry.icon, weatherEntry.refreshed, weatherEntry.ipi_id)
+            weatherDao?.update(weatherEntry.temperature, weatherEntry.icon, weatherEntry.refreshed, weatherEntry.api_id)
         }.invokeOnCompletion {
             callback.onFinishDb()
         }

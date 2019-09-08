@@ -13,6 +13,11 @@ interface ForecastApi {
         @Query("id") cnt: String, @Query("appid") appid: String, @Query("units") units: String
     ): Call<City>
 
+    @GET("weather?")
+    fun getWeatherByCityName(
+        @Query("q") q: String, @Query("appid") appid: String, @Query("units") units: String
+    ): Call<City>
+
     @GET("group?")
     fun getSetOfWeatherByIds(
         @Query("id") cnt: String, @Query("appid") appid: String, @Query("units") units: String
