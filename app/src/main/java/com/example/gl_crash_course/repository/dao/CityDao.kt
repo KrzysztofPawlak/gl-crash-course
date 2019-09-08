@@ -11,6 +11,6 @@ interface CityDao {
     @Query("SELECT * FROM city_table")
     fun getAll(): LiveData<List<CityEntry>>
 
-    @Delete
-    fun delete(cityEntry: CityEntry)
+    @Query("DELETE FROM city_table WHERE api_id = :api_id")
+    fun delete(api_id: Int)
 }

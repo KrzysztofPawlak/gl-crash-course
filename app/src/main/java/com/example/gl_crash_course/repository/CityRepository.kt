@@ -22,4 +22,10 @@ class CityRepository(application: Application) {
             cityDao?.insert(cityEntry)
         }
     }
+
+    fun delete(api_id: Int) = GlobalScope.launch(Dispatchers.Main) {
+        async(Dispatchers.IO) {
+            cityDao?.delete(api_id)
+        }
+    }
 }

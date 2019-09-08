@@ -44,6 +44,10 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
+    fun deleteCityFromList(api_id: Int) {
+        cityRepository.delete(api_id)
+    }
+
     private fun isAlreadyExists(searchingId: Int): Boolean {
         return mediatorLiveData.value!!.any { it.api_id == searchingId }
     }

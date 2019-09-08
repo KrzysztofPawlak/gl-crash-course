@@ -60,7 +60,9 @@ class SettingsFragment : Fragment(), CityAdapter.OnCityClickListener {
         })
     }
 
-    override fun onCityClick(id: Int) { }
+    override fun onCityClick(api_id: Int) {
+        model.deleteCityFromList(api_id)
+    }
 
     private fun View.hideKeyboard() {
         val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
