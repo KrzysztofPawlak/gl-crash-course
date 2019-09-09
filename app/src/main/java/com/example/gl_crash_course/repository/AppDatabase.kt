@@ -7,11 +7,12 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.gl_crash_course.repository.dao.*
 
-@Database(entities = [WeatherEntry::class, CityEntry::class], version = 6)
+@Database(entities = [WeatherEntry::class, CityEntry::class, SearchHistoryEntry::class], version = 8)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun weatherDao(): WeatherDao
     abstract fun cityDao(): CityDao
+    abstract fun searchHistoryDao(): SearchHistoryDao
 
     companion object {
         var INSTANCE: AppDatabase? = null

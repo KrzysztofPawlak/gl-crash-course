@@ -8,22 +8,33 @@ import com.example.gl_crash_course.api.ForecastService
 import com.example.gl_crash_course.api.model.City
 import com.example.gl_crash_course.repository.CityRepository
 import com.example.gl_crash_course.repository.dao.CityEntry
+import com.example.gl_crash_course.repository.dao.SearchHistoryEntry
+import com.example.gl_crash_course.repository.dao.SearchHistoryRepository
+import java.time.LocalDateTime
 
 class SettingsViewModel(application: Application) : AndroidViewModel(application),
     ForecastService.GetWeatherByCityNameCallback {
 
     var searchedText = MutableLiveData<String>()
     var searchResult = MutableLiveData<City>()
-    var mediatorLiveData = MediatorLiveData<List<CityEntry>>()
+    var mediatorCityLiveData = MediatorLiveData<List<CityEntry>>()
+    var mediatorSearchHistoryLiveData = MediatorLiveData<List<SearchHistoryEntry>>()
 
     private var forecastService: ForecastService = ForecastService(application)
     private val cityRepository = CityRepository(application)
+    private val searchHistoryRepository = SearchHistoryRepository(application)
 
     init {
-        var dataFromDb = cityRepository.allCities
-        mediatorLiveData.addSource(dataFromDb) { result: List<CityEntry>? ->
+        var dataCityListFromDb = cityRepository.allCities
+        mediatorCityLiveData.addSource(dataCityListFromDb) { result: List<CityEntry>? ->
             result?.let {
-                mediatorLiveData.value = it
+                mediatorCityLiveData.value = it
+            }
+        }
+        var dataSearchHistoryFromDb = searchHistoryRepository.lastHistoryEntries
+        mediatorSearchHistoryLiveData.addSource(dataSearchHistoryFromDb) { result: List<SearchHistoryEntry>? ->
+            result?.let {
+                mediatorSearchHistoryLiveData.value = it
             }
         }
     }
@@ -31,14 +42,16 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     fun onShowData() {
         if (searchedText.value != null) {
             forecastService.getWeatherByCityName(searchedText.value.toString(), this)
+            searchHistoryRepository.insert(SearchHistoryEntry(0, searchedText.value.toString(), LocalDateTime.now()))
         }
     }
 
     fun onAddData() {
         if (searchResult.value != null) {
-            var city = CityEntry(0, searchResult.value!!.id, searchResult.value!!.name, searchResult.value!!.sys.country)
+            var city =
+                CityEntry(0, searchResult.value!!.id, searchResult.value!!.name, searchResult.value!!.sys.country)
 
-            if(!isAlreadyExists(city.api_id)) {
+            if (!isAlreadyExists(city.api_id)) {
                 cityRepository.insert(city)
             }
         }
@@ -49,7 +62,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     }
 
     private fun isAlreadyExists(searchingId: Int): Boolean {
-        return mediatorLiveData.value!!.any { it.api_id == searchingId }
+        return mediatorCityLiveData.value!!.any { it.api_id == searchingId }
     }
 
     override fun onWeatherLoaded(city: City?) {
