@@ -5,34 +5,53 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.gl_crash_course.ForecastApiConst
-import com.example.gl_crash_course.ForecastApiConst.ADAPTER_LIST_SIZE
 import com.example.gl_crash_course.ForecastApiConst.UPDATE_TIME
-import com.example.gl_crash_course.repository.dao.WeatherEntry
+import com.example.gl_crash_course.db.model.WeatherEntry
 import com.example.gl_crash_course.api.model.Forecast
-import com.example.gl_crash_course.repository.ForecastRepository
+import com.example.gl_crash_course.db.repository.ForecastRepository
 import com.example.gl_crash_course.api.ForecastService
+import com.example.gl_crash_course.db.model.CityEntry
+import com.example.gl_crash_course.db.repository.CityRepository
 import java.time.*
 import java.time.temporal.ChronoUnit
 import java.util.concurrent.atomic.AtomicInteger
 
 class ForecastViewModel(application: Application) : AndroidViewModel(application),
-    ForecastService.GetForecastCallback, ForecastRepository.DbOperationCallback {
+    ForecastService.GetForecastCallback, ForecastRepository.DbOperationCallback, CityRepository.CityCallback {
 
     private val forecastRepository = ForecastRepository(application)
+    private val cityRepository = CityRepository(application)
     private var forecastService: ForecastService = ForecastService(application)
 
     private var counterCurrentOperationOnDb = AtomicInteger()
-    var refresh = MutableLiveData<Boolean>()
 
+    var refresh = MutableLiveData<Boolean>()
     private val mutableForecast = MediatorLiveData<List<WeatherEntry>>()
+    private val mutableCities = MediatorLiveData<List<CityEntry>>()
 
     init {
         var dataFromDb = forecastRepository.allWeather
         mutableForecast.addSource(dataFromDb) { result: List<WeatherEntry>? ->
             result?.let {
                 mutableForecast.value = it
-                fetchIfNeeded(it)
+                fetchIfNeeded()
+            }
+        }
+        var dataCitiesFromDb = cityRepository.allCities
+        mutableForecast.addSource(dataCitiesFromDb) { result: List<CityEntry>? ->
+            result?.let {
+                mutableCities.value = it
+                fetchIfNeeded()
+            }
+        }
+    }
+
+    override fun onFinishLoadedCitiesFromDb(cityList: ArrayList<CityEntry>) {
+        var dataFromDb = forecastRepository.allWeather
+        mutableForecast.addSource(dataFromDb) { result: List<WeatherEntry>? ->
+            result?.let {
+                mutableForecast.value = it
+                fetchIfNeeded()
             }
         }
     }
@@ -45,52 +64,69 @@ class ForecastViewModel(application: Application) : AndroidViewModel(application
         getData()
     }
 
-    private fun fetchIfNeeded(it: List<WeatherEntry>) {
+    private fun fetchIfNeeded() {
         var allowedCurrentOperations = 0
         if (counterCurrentOperationOnDb.get() != allowedCurrentOperations) {
             return
         }
 
-        var isOutdated = checkCurrentEntriesAreOutdated()
-        if (it.size < ADAPTER_LIST_SIZE || isOutdated) {
+        if (mutableForecast.value.isNullOrEmpty() || mutableCities.value.isNullOrEmpty()) {
+            return
+        }
+
+        var isWeatherOutdated = checkCurrentEntriesAreOutdated()
+        var isWeatherListSizeIsLowerThanSizeFromCitiesList = mutableForecast.value!!.size < mutableCities.value!!.size
+        var isWeatherListContainsCorrectCitiesEntries = checkWeatherCitiesIdsContainsAllCitiesIdsEntries()
+        if (isWeatherListSizeIsLowerThanSizeFromCitiesList || isWeatherOutdated || !isWeatherListContainsCorrectCitiesEntries) {
             getData()
         }
     }
 
-    private fun insertWeather(weatherEntry: WeatherEntry) {
-        forecastRepository.insert(weatherEntry, this)
-    }
-
-    private fun updateWeather(weatherEntry: WeatherEntry) {
-        forecastRepository.update(weatherEntry, this)
-    }
-
     private fun getData() {
-        var ids: String = ForecastApiConst.PL_CITIES_IDS.map { entry -> entry.value }.joinToString(",")
+        val ids = mutableCities.value!!.joinToString(separator = ",") { "${it.api_id}" }
         forecastService.getSetOfWeatherByIds(ids, this)
     }
 
     override fun onForecastLoaded(forecast: Forecast?) {
 
         val list = forecast!!.list.map {
-            WeatherEntry(0, it.id, it.name, it.main.temp.toString(), it.weather[0].icon, LocalDateTime.now())
+            WeatherEntry(
+                0,
+                it.id,
+                it.name,
+                it.main.temp.toString(),
+                it.weather[0].icon,
+                LocalDateTime.now()
+            )
         }
 
         list.stream()
-            .filter { isAlreadyExists(it.api_id) }
+            .filter { alreadyExists(it.api_id) }
             .forEach {
                 counterCurrentOperationOnDb.getAndIncrement()
-                updateWeather(it)
+                forecastRepository.update(it, this)
             }
 
         list.stream()
-            .filter { !isAlreadyExists(it.api_id) }
+            .filter { !alreadyExists(it.api_id) }
             .forEach {
                 counterCurrentOperationOnDb.getAndIncrement()
-                insertWeather(it)
+                forecastRepository.insert(it, this)
+            }
+
+        mutableForecast.value!!.stream()
+            .filter { !checkWeatherFromDbExistsInResponse(it.api_id, list) }
+            .forEach {
+                counterCurrentOperationOnDb.getAndIncrement()
+                forecastRepository.delete(it.api_id, this)
             }
 
         refresh.value = false
+    }
+
+    private fun checkWeatherCitiesIdsContainsAllCitiesIdsEntries(): Boolean {
+        var cityList = mutableCities.value as ArrayList<CityEntry>
+        return mutableForecast.value!!.map { entry -> entry.api_id }.containsAll(cityList.map { entry -> entry.api_id })
     }
 
     private fun checkCurrentEntriesAreOutdated(): Boolean {
@@ -99,8 +135,12 @@ class ForecastViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    private fun isAlreadyExists(searchingId: Int): Boolean {
-        return mutableForecast.value!!.any { it.api_id == searchingId }
+    private fun checkWeatherFromDbExistsInResponse(dbId: Int, list: List<WeatherEntry>): Boolean {
+        return list.any { it.api_id == dbId }
+    }
+
+    private fun alreadyExists(searchId: Int): Boolean {
+        return mutableForecast.value!!.any { it.api_id == searchId }
     }
 
     override fun onFinishDb() {

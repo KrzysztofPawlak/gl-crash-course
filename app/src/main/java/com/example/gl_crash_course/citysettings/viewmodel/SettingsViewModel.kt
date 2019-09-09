@@ -6,10 +6,10 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.gl_crash_course.api.ForecastService
 import com.example.gl_crash_course.api.model.City
-import com.example.gl_crash_course.repository.CityRepository
-import com.example.gl_crash_course.repository.dao.CityEntry
-import com.example.gl_crash_course.repository.dao.SearchHistoryEntry
-import com.example.gl_crash_course.repository.dao.SearchHistoryRepository
+import com.example.gl_crash_course.db.repository.CityRepository
+import com.example.gl_crash_course.db.model.CityEntry
+import com.example.gl_crash_course.db.model.SearchHistoryEntry
+import com.example.gl_crash_course.db.repository.SearchHistoryRepository
 import java.time.LocalDateTime
 
 class SettingsViewModel(application: Application) : AndroidViewModel(application),
@@ -42,14 +42,25 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     fun onShowData() {
         if (searchedText.value != null) {
             forecastService.getWeatherByCityName(searchedText.value.toString(), this)
-            searchHistoryRepository.insert(SearchHistoryEntry(0, searchedText.value.toString(), LocalDateTime.now()))
+            searchHistoryRepository.insert(
+                SearchHistoryEntry(
+                    0,
+                    searchedText.value.toString(),
+                    LocalDateTime.now()
+                )
+            )
         }
     }
 
     fun onAddData() {
         if (searchResult.value != null) {
             var city =
-                CityEntry(0, searchResult.value!!.id, searchResult.value!!.name, searchResult.value!!.sys.country)
+                CityEntry(
+                    0,
+                    searchResult.value!!.id,
+                    searchResult.value!!.name,
+                    searchResult.value!!.sys.country
+                )
 
             if (!isAlreadyExists(city.api_id)) {
                 cityRepository.insert(city)

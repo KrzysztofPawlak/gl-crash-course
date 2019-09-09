@@ -1,8 +1,11 @@
-package com.example.gl_crash_course.repository
+package com.example.gl_crash_course.db.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.example.gl_crash_course.repository.dao.CityEntry
+import androidx.lifecycle.MutableLiveData
+import com.example.gl_crash_course.api.model.City
+import com.example.gl_crash_course.db.AppDatabase
+import com.example.gl_crash_course.db.model.CityEntry
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async

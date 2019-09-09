@@ -1,7 +1,8 @@
-package com.example.gl_crash_course.repository.dao
+package com.example.gl_crash_course.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.gl_crash_course.db.model.CityEntry
 
 @Dao
 interface CityDao {

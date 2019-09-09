@@ -55,11 +55,11 @@ class ForecastService(var context: Context) {
     fun getSetOfWeatherByIds(ids: String, callback: GetForecastCallback) {
         forecastApi.getSetOfWeatherByIds(ids, BuildConfig.OpenWeatherAppKey, ForecastApiConst.UNITS).enqueue(object : Callback<Forecast> {
             override fun onFailure(call: Call<Forecast>, t: Throwable?) {
-                println(t!!.printStackTrace().toString())
+                println("failure: " + t!!.printStackTrace().toString())
             }
 
             override fun onResponse(call: Call<Forecast>, response: Response<Forecast>) {
-                println(response.message())
+                println("onResponse: " + response.message())
                 callback.onForecastLoaded(response.body())
             }
         })

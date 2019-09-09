@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gl_crash_course.R
-import com.example.gl_crash_course.repository.dao.WeatherEntry
+import com.example.gl_crash_course.db.model.WeatherEntry
 import com.example.gl_crash_course.view.SecondActivity
 import com.example.gl_crash_course.databinding.FragmentFirstBinding
 import com.example.gl_crash_course.forecastlist.viewmodel.ForecastViewModel

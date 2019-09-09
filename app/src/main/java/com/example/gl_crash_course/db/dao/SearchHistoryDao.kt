@@ -1,9 +1,10 @@
-package com.example.gl_crash_course.repository.dao
+package com.example.gl_crash_course.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.example.gl_crash_course.db.model.SearchHistoryEntry
 
 @Dao
 interface SearchHistoryDao {

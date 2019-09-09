@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.databinding.ViewDataBinding
 import com.example.gl_crash_course.databinding.CityListItemBinding
-import com.example.gl_crash_course.repository.dao.CityEntry
+import com.example.gl_crash_course.db.model.CityEntry
 
 class CityAdapter(
     private var dataSource: ArrayList<CityEntry>,

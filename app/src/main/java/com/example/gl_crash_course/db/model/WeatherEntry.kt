@@ -1,4 +1,4 @@
-package com.example.gl_crash_course.repository.dao
+package com.example.gl_crash_course.db.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

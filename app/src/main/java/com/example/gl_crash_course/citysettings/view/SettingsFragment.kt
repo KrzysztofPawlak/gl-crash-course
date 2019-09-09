@@ -15,8 +15,8 @@ import com.example.gl_crash_course.R
 import com.example.gl_crash_course.api.model.City
 import com.example.gl_crash_course.citysettings.viewmodel.SettingsViewModel
 import com.example.gl_crash_course.databinding.FragmentSettingsBinding
-import com.example.gl_crash_course.repository.dao.CityEntry
-import com.example.gl_crash_course.repository.dao.SearchHistoryEntry
+import com.example.gl_crash_course.db.model.CityEntry
+import com.example.gl_crash_course.db.model.SearchHistoryEntry
 import com.example.gl_crash_course.view.SecondActivity
 
 class SettingsFragment : Fragment(), CityAdapter.OnCityClickListener {

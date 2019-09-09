@@ -1,8 +1,9 @@
-package com.example.gl_crash_course.repository
+package com.example.gl_crash_course.db.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.example.gl_crash_course.repository.dao.WeatherEntry
+import com.example.gl_crash_course.db.AppDatabase
+import com.example.gl_crash_course.db.model.WeatherEntry
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -27,6 +28,14 @@ class ForecastRepository(application: Application) {
     fun update(weatherEntry: WeatherEntry, callback: DbOperationCallback) = GlobalScope.launch(Dispatchers.Main){
         async(Dispatchers.IO) {
             weatherDao?.update(weatherEntry.temperature, weatherEntry.icon, weatherEntry.refreshed, weatherEntry.api_id)
+        }.invokeOnCompletion {
+            callback.onFinishDb()
+        }
+    }
+
+    fun delete(api_id: Int, callback: DbOperationCallback) = GlobalScope.launch(Dispatchers.Main){
+        async(Dispatchers.IO) {
+            weatherDao?.delete(api_id)
         }.invokeOnCompletion {
             callback.onFinishDb()
         }

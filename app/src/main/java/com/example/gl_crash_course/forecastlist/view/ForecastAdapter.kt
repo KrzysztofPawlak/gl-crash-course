@@ -7,7 +7,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gl_crash_course.ForecastApiConst.ADAPTER_SIZE_DIVIDE
-import com.example.gl_crash_course.repository.dao.WeatherEntry
+import com.example.gl_crash_course.db.model.WeatherEntry
 import com.example.gl_crash_course.databinding.ListItemBinding
 import com.example.gl_crash_course.forecastlist.CityDiffUtilCallback
 import kotlinx.android.synthetic.main.list_item.view.*

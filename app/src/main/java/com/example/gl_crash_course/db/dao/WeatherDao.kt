@@ -1,7 +1,8 @@
-package com.example.gl_crash_course.repository.dao
+package com.example.gl_crash_course.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.gl_crash_course.db.model.WeatherEntry
 import java.time.LocalDateTime
 
 @Dao
@@ -16,4 +17,6 @@ interface WeatherDao {
     @Query("UPDATE pogoda_table SET temperature = :temperature, icon = :icon, refreshed = :refreshed WHERE api_id = :api_id")
     fun update(temperature: String, icon: String, refreshed: LocalDateTime, api_id: Int)
 
+    @Query("DELETE FROM pogoda_table WHERE api_id = :api_id")
+    fun delete(api_id: Int)
 }
