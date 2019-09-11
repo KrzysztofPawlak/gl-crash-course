@@ -17,7 +17,6 @@ import com.example.gl_crash_course.citysettings.viewmodel.SettingsViewModel
 import com.example.gl_crash_course.databinding.FragmentSettingsBinding
 import com.example.gl_crash_course.db.model.CityEntry
 import com.example.gl_crash_course.db.model.SearchHistoryEntry
-import com.example.gl_crash_course.view.SecondActivity
 
 class SettingsFragment : Fragment(), CityAdapter.OnCityClickListener {
 
@@ -40,7 +39,6 @@ class SettingsFragment : Fragment(), CityAdapter.OnCityClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as SecondActivity).hideFloatingActionButton()
 
         model = ViewModelProviders.of(this).get(SettingsViewModel::class.java)
         binding.model = model

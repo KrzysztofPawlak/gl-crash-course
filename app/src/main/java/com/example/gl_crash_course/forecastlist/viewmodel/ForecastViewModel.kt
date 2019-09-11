@@ -17,7 +17,7 @@ import java.time.temporal.ChronoUnit
 import java.util.concurrent.atomic.AtomicInteger
 
 class ForecastViewModel(application: Application) : AndroidViewModel(application),
-    ForecastService.GetForecastCallback, ForecastRepository.DbOperationCallback, CityRepository.CityCallback {
+    ForecastService.GetForecastCallback, ForecastRepository.DbOperationCallback {
 
     private val forecastRepository = ForecastRepository(application)
     private val cityRepository = CityRepository(application)
@@ -41,16 +41,6 @@ class ForecastViewModel(application: Application) : AndroidViewModel(application
         mutableForecast.addSource(dataCitiesFromDb) { result: List<CityEntry>? ->
             result?.let {
                 mutableCities.value = it
-                fetchIfNeeded()
-            }
-        }
-    }
-
-    override fun onFinishLoadedCitiesFromDb(cityList: ArrayList<CityEntry>) {
-        var dataFromDb = forecastRepository.allWeather
-        mutableForecast.addSource(dataFromDb) { result: List<WeatherEntry>? ->
-            result?.let {
-                mutableForecast.value = it
                 fetchIfNeeded()
             }
         }
