@@ -1,11 +1,16 @@
 package com.example.gl_crash_course.api
 
 import android.content.Context
+import android.widget.Toast
 import com.example.gl_crash_course.BuildConfig
 import com.example.gl_crash_course.ForecastApiConst
 import com.example.gl_crash_course.api.model.City
 import com.example.gl_crash_course.api.model.Forecast
+import com.example.gl_crash_course.api.model.HttpCacheInterceptor
+import com.example.gl_crash_course.service.NetworkUtils
 import okhttp3.Cache
+import okhttp3.CacheControl
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -17,11 +22,12 @@ class ForecastService(var context: Context) {
 
     private var forecastApi: ForecastApi
     private val cacheSize: Long = 5 * 1024 * 1024
-    private val cache: Cache = Cache(context.codeCacheDir, cacheSize)
+    private val cache: Cache = Cache(context.cacheDir, cacheSize)
 
     init {
         val client = OkHttpClient().newBuilder()
             .cache(cache)
+            .addInterceptor(HttpCacheInterceptor(context))
             .build()
 
         val retrofit = Retrofit.Builder()
@@ -33,36 +39,41 @@ class ForecastService(var context: Context) {
     }
 
     fun getWeatherById(id: String, callback: GetWeatherCallback) {
-        forecastApi.getWeatherById(id, BuildConfig.OpenWeatherAppKey, ForecastApiConst.UNITS).enqueue(object : Callback<City> {
-            override fun onFailure(call: Call<City>, t: Throwable?) { }
+        forecastApi.getWeatherById(id, BuildConfig.OpenWeatherAppKey, ForecastApiConst.UNITS)
+            .enqueue(object : Callback<City> {
+                override fun onFailure(call: Call<City>, t: Throwable?) {}
 
-            override fun onResponse(call: Call<City>, response: Response<City>) {
-                callback.onWeatherLoaded(response.body())
-            }
-        })
+                override fun onResponse(call: Call<City>, response: Response<City>) {
+                    callback.onWeatherLoaded(response.body())
+                }
+            })
     }
 
     fun getWeatherByCityName(name: String, callback: GetWeatherByCityNameCallback) {
-        forecastApi.getWeatherByCityName(name, BuildConfig.OpenWeatherAppKey, ForecastApiConst.UNITS).enqueue(object : Callback<City> {
-            override fun onFailure(call: Call<City>, t: Throwable?) { }
+        forecastApi.getWeatherByCityName(name, BuildConfig.OpenWeatherAppKey, ForecastApiConst.UNITS)
+            .enqueue(object : Callback<City> {
+                override fun onFailure(call: Call<City>, t: Throwable?) {}
 
-            override fun onResponse(call: Call<City>, response: Response<City>) {
-                callback.onWeatherLoaded(response.body())
-            }
-        })
+                override fun onResponse(call: Call<City>, response: Response<City>) {
+                    callback.onWeatherLoaded(response.body())
+                }
+            })
     }
 
     fun getSetOfWeatherByIds(ids: String, callback: GetForecastCallback) {
-        forecastApi.getSetOfWeatherByIds(ids, BuildConfig.OpenWeatherAppKey, ForecastApiConst.UNITS).enqueue(object : Callback<Forecast> {
-            override fun onFailure(call: Call<Forecast>, t: Throwable?) {
-                println("failure: " + t!!.printStackTrace().toString())
-            }
+        forecastApi.getSetOfWeatherByIds(ids, BuildConfig.OpenWeatherAppKey, ForecastApiConst.UNITS)
+            .enqueue(object : Callback<Forecast> {
+                override fun onFailure(call: Call<Forecast>, t: Throwable?) {
+                    Toast.makeText(context, "fetch failure!!!", Toast.LENGTH_LONG).show()
+                }
 
-            override fun onResponse(call: Call<Forecast>, response: Response<Forecast>) {
-                println("onResponse: " + response.message())
-                callback.onForecastLoaded(response.body())
-            }
-        })
+                override fun onResponse(call: Call<Forecast>, response: Response<Forecast>) {
+                    if (response.message() == "has no network") {
+                        Toast.makeText(context, "No Network!!!", Toast.LENGTH_LONG).show()
+                    }
+                    callback.onForecastLoaded(response.body())
+                }
+            })
     }
 
     interface GetForecastCallback {

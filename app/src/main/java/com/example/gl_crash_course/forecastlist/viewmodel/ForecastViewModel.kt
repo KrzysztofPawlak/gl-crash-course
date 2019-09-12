@@ -78,6 +78,10 @@ class ForecastViewModel(application: Application) : AndroidViewModel(application
     }
 
     override fun onForecastLoaded(forecast: Forecast?) {
+        if (forecast == null) {
+            refresh.value = false
+            return
+        }
 
         val list = forecast!!.list.map {
             WeatherEntry(
