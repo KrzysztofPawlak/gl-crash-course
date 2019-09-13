@@ -19,4 +19,5 @@ interface WeatherDao {
 
     @Query("DELETE FROM pogoda_table WHERE api_id = :api_id")
     fun delete(api_id: Int)
+
 }

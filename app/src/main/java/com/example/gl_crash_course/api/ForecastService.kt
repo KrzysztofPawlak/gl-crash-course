@@ -4,13 +4,10 @@ import android.content.Context
 import android.widget.Toast
 import com.example.gl_crash_course.BuildConfig
 import com.example.gl_crash_course.ForecastApiConst
+import com.example.gl_crash_course.R
 import com.example.gl_crash_course.api.model.City
 import com.example.gl_crash_course.api.model.Forecast
-import com.example.gl_crash_course.api.model.HttpCacheInterceptor
-import com.example.gl_crash_course.service.NetworkUtils
 import okhttp3.Cache
-import okhttp3.CacheControl
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,9 +38,14 @@ class ForecastService(var context: Context) {
     fun getWeatherById(id: String, callback: GetWeatherCallback) {
         forecastApi.getWeatherById(id, BuildConfig.OpenWeatherAppKey, ForecastApiConst.UNITS)
             .enqueue(object : Callback<City> {
-                override fun onFailure(call: Call<City>, t: Throwable?) {}
+                override fun onFailure(call: Call<City>, t: Throwable?) {
+                    Toast.makeText(context, context.getString(R.string.fetch_toast_message), Toast.LENGTH_LONG).show()
+                }
 
                 override fun onResponse(call: Call<City>, response: Response<City>) {
+                    if (response.message() == context.getString(R.string.no_network_response_message)) {
+                        Toast.makeText(context, context.getString(R.string.no_network_toast_message), Toast.LENGTH_LONG).show()
+                    }
                     callback.onWeatherLoaded(response.body())
                 }
             })
@@ -52,9 +54,14 @@ class ForecastService(var context: Context) {
     fun getWeatherByCityName(name: String, callback: GetWeatherByCityNameCallback) {
         forecastApi.getWeatherByCityName(name, BuildConfig.OpenWeatherAppKey, ForecastApiConst.UNITS)
             .enqueue(object : Callback<City> {
-                override fun onFailure(call: Call<City>, t: Throwable?) {}
+                override fun onFailure(call: Call<City>, t: Throwable?) {
+                    Toast.makeText(context, context.getString(R.string.fetch_toast_message), Toast.LENGTH_LONG).show()
+                }
 
                 override fun onResponse(call: Call<City>, response: Response<City>) {
+                    if (response.message() == context.getString(R.string.no_network_response_message)) {
+                        Toast.makeText(context, context.getString(R.string.no_network_toast_message), Toast.LENGTH_LONG).show()
+                    }
                     callback.onWeatherLoaded(response.body())
                 }
             })
@@ -64,12 +71,12 @@ class ForecastService(var context: Context) {
         forecastApi.getSetOfWeatherByIds(ids, BuildConfig.OpenWeatherAppKey, ForecastApiConst.UNITS)
             .enqueue(object : Callback<Forecast> {
                 override fun onFailure(call: Call<Forecast>, t: Throwable?) {
-                    Toast.makeText(context, "fetch failure!!!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, context.getString(R.string.fetch_toast_message), Toast.LENGTH_LONG).show()
                 }
 
                 override fun onResponse(call: Call<Forecast>, response: Response<Forecast>) {
-                    if (response.message() == "has no network") {
-                        Toast.makeText(context, "No Network!!!", Toast.LENGTH_LONG).show()
+                    if (response.message() == context.getString(R.string.no_network_response_message)) {
+                        Toast.makeText(context, context.getString(R.string.no_network_toast_message), Toast.LENGTH_LONG).show()
                     }
                     callback.onForecastLoaded(response.body())
                 }

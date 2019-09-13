@@ -44,4 +44,5 @@ class ForecastRepository(application: Application) {
     interface DbOperationCallback {
         fun onFinishDb()
     }
+
 }
