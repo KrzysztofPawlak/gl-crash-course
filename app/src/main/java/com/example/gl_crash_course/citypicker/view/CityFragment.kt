@@ -1,4 +1,4 @@
-package com.example.gl_crash_course.citysettings.view
+package com.example.gl_crash_course.citypicker.view
 
 import android.content.Context
 import android.os.Bundle
@@ -13,23 +13,23 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.gl_crash_course.R
 import com.example.gl_crash_course.api.model.City
-import com.example.gl_crash_course.citysettings.viewmodel.SettingsViewModel
-import com.example.gl_crash_course.databinding.FragmentSettingsBinding
+import com.example.gl_crash_course.citypicker.viewmodel.CityViewModel
+import com.example.gl_crash_course.databinding.FragmentCityPickerBinding
 import com.example.gl_crash_course.db.model.CityEntry
 import com.example.gl_crash_course.db.model.SearchHistoryEntry
 
-class SettingsFragment : Fragment(), CityAdapter.OnCityClickListener {
+class CityFragment : Fragment(), CityAdapter.OnCityClickListener {
 
-    private lateinit var binding: FragmentSettingsBinding
+    private lateinit var binding: FragmentCityPickerBinding
     private var adapter: CityAdapter = CityAdapter(arrayListOf(), this)
     private lateinit var adapterHistoryList: ArrayAdapter<String>
-    private lateinit var model: SettingsViewModel
+    private lateinit var model: CityViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_city_picker, container, false)
 
         binding.listView.adapter = adapter
 
@@ -40,7 +40,7 @@ class SettingsFragment : Fragment(), CityAdapter.OnCityClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        model = ViewModelProviders.of(this).get(SettingsViewModel::class.java)
+        model = ViewModelProviders.of(this).get(CityViewModel::class.java)
         binding.model = model
 
         model.mediatorCityLiveData.observe(this, Observer<List<CityEntry>> {
@@ -87,6 +87,6 @@ class SettingsFragment : Fragment(), CityAdapter.OnCityClickListener {
 
     companion object {
         @JvmStatic
-        fun newInstance() = SettingsFragment()
+        fun newInstance() = CityFragment()
     }
 }

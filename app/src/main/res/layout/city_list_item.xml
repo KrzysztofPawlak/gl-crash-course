@@ -5,7 +5,7 @@
         <variable name="name" type="String"/>
         <variable
                 name="listener"
-                type="com.example.gl_crash_course.citysettings.view.CityAdapter.OnCityClickListener"/>
+                type="com.example.gl_crash_course.citypicker.view.CityAdapter.OnCityClickListener"/>
     </data>
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
