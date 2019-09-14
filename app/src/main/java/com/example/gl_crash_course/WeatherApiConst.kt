@@ -1,13 +1,13 @@
 package com.example.gl_crash_course
 
-object ForecastApiConst {
+object WeatherApiConst {
 
     const val API_PATH = "https://api.openweathermap.org/data/2.5/"
     const val IMG_URL_PREFIX = "http://openweathermap.org/img/wn/"
     const val IMG_URL_POSTFIX = "@2x.png"
     const val UNITS: String = "metric"
     const val UPDATE_TIME: Int = 2
-    const val ADAPTER_LIST_SIZE: Int = 10
+    const val ADAPTER_LIST_SIZE: Int = 16
     const val ADAPTER_SIZE_DIVIDE: Int = 3
 
     val PL_CITIES_IDS = mapOf(

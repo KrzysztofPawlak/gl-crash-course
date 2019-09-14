@@ -1,7 +1,7 @@
-package com.example.gl_crash_course.forecastlist
+package com.example.gl_crash_course.weatherlist
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.gl_crash_course.repository.dao.WeatherEntry
+import com.example.gl_crash_course.db.model.WeatherEntry
 
 class CityDiffUtilCallback(private val cityList: List<WeatherEntry>, private val updatedList: List<WeatherEntry>) :
     DiffUtil.Callback() {

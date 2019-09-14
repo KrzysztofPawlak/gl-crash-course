@@ -1,4 +1,4 @@
-package com.example.gl_crash_course.forecastlist.view
+package com.example.gl_crash_course.weatherlist.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,17 +11,17 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gl_crash_course.R
-import com.example.gl_crash_course.repository.dao.WeatherEntry
+import com.example.gl_crash_course.db.model.WeatherEntry
 import com.example.gl_crash_course.view.SecondActivity
 import com.example.gl_crash_course.databinding.FragmentFirstBinding
-import com.example.gl_crash_course.forecastlist.viewmodel.ForecastViewModel
+import com.example.gl_crash_course.weatherlist.viewmodel.WeatherViewModel
 
-class FirstFragment : Fragment(), ForecastAdapter.OnCityClickListener,
-    ForecastAdapter.VisitedInterface {
+class FirstFragment : Fragment(), WeatherAdapter.OnCityClickListener,
+    WeatherAdapter.VisitedInterface {
 
-    private lateinit var model: ForecastViewModel
+    private lateinit var model: WeatherViewModel
     private lateinit var binding: FragmentFirstBinding
-    private val adapter = ForecastAdapter(this, this)
+    private val adapter = WeatherAdapter(this, this)
 
     override fun isVisited(id: Int): Boolean {
         return (activity as SecondActivity).model.isVisited(id)
@@ -53,7 +53,7 @@ class FirstFragment : Fragment(), ForecastAdapter.OnCityClickListener,
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        model = ViewModelProviders.of(this).get(ForecastViewModel::class.java)
+        model = ViewModelProviders.of(this).get(WeatherViewModel::class.java)
 
         model.getForecast().observe(viewLifecycleOwner, Observer<List<WeatherEntry>> { forecast ->
             adapter.updateForecast(forecast)

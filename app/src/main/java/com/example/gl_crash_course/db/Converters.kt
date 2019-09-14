@@ -1,4 +1,4 @@
-package com.example.gl_crash_course.repository.dao
+package com.example.gl_crash_course.db
 
 import androidx.room.TypeConverter
 import java.time.Instant

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="id_api" type="Integer"/>
+        <variable name="name" type="String"/>
+        <variable
+                name="listener"
+                type="com.example.gl_crash_course.citysettings.view.CityAdapter.OnCityClickListener"/>
+    </data>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                  android:orientation="horizontal">
+        <TextView
+                android:id="@+id/Row"
+                android:text="@{name}"
+                android:textSize="@dimen/weater_detal_font_size"
+                android:layout_toEndOf="@id/iv"
+                android:paddingHorizontal="@dimen/weater_detal_padding_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_delete"
+                android:onClick="@{() -> listener.onCityClick(id_api)}"/>
+    </LinearLayout>
+</layout>

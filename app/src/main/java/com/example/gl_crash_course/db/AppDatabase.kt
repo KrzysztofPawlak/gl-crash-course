@@ -1,21 +1,24 @@
-package com.example.gl_crash_course.repository
+package com.example.gl_crash_course.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.gl_crash_course.repository.dao.Converters
-import com.example.gl_crash_course.repository.dao.WeatherEntry
-import com.example.gl_crash_course.repository.dao.WeatherDao
+import com.example.gl_crash_course.db.dao.*
+import com.example.gl_crash_course.db.model.CityEntry
+import com.example.gl_crash_course.db.model.SearchHistoryEntry
+import com.example.gl_crash_course.db.model.WeatherEntry
 
-@Database(entities = [WeatherEntry::class], version = 4)
+@Database(entities = [WeatherEntry::class, CityEntry::class, SearchHistoryEntry::class], version = 9)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun weatherDao(): WeatherDao
+    abstract fun cityDao(): CityDao
+    abstract fun searchHistoryDao(): SearchHistoryDao
 
     companion object {
-        var INSTANCE: AppDatabase? = null
+        private var INSTANCE: AppDatabase? = null
 
         fun getAppDatabase(context: Context): AppDatabase? {
             if (INSTANCE == null) {

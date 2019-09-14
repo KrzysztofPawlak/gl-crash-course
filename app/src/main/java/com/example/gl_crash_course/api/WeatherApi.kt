@@ -6,11 +6,11 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface ForecastApi {
+interface WeatherApi {
 
     @GET("weather?")
-    fun getWeatherById(
-        @Query("id") cnt: String, @Query("appid") appid: String, @Query("units") units: String
+    fun getWeatherByCityName(
+        @Query("q") q: String, @Query("appid") appid: String, @Query("units") units: String
     ): Call<City>
 
     @GET("group?")

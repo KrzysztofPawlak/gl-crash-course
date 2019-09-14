@@ -22,19 +22,22 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_second, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_second, container, false
+        )
 
         binding.btnStartFirstFragment.setOnClickListener {
             (activity as SecondActivity).switchFragment(this)
         }
 
-        model = ViewModelProviders.of(this).get(CityWeatherDetalViewModel::class.java)
-
         val id = arguments?.getInt("id")
 
+        model = ViewModelProviders.of(this).get(CityWeatherDetalViewModel::class.java)
+
+
         if (id != null) {
-            model.getOne(id.toString())
+            model.loadWeather(id)
         }
 
         binding.model = model

@@ -18,14 +18,14 @@
                 android:src="@mipmap/ic_launcher"
                 android:contentDescription="TODO"
                 android:layout_weight="6"
-                android:imageUrl='@{model.liveData.weather[0].icon ?? ""}'
+                android:imageUrl='@{model.liveDataWeather.icon ?? ""}'
                 android:layout_gravity="center_horizontal" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintVertical_bias="0.092"/>
         <TextView
                 android:id="@+id/tvName"
-                android:text='@{"city: " + model.liveData.name}'
+                android:text='@{"city: " + model.liveDataWeather.name}'
                 android:paddingHorizontal="@dimen/weater_detal_padding_text"
                 app:layout_constraintTop_toBottomOf="@+id/iv"
                 android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                 app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.318"/>
         <TextView
                 android:id="@+id/tvDesc"
-                android:text='@{"description: " + model.liveData.weather[0].description}'
+                android:text='@{"description: " + model.liveDataWeather.description}'
                 android:paddingHorizontal="@dimen/weater_detal_padding_text"
                 app:layout_constraintTop_toBottomOf="@+id/tvName"
                 android:layout_width="match_parent"
@@ -49,7 +49,7 @@
                 app:layout_constraintVertical_bias="0.072" android:layout_marginTop="8dp"/>
         <TextView
                 android:id="@+id/tvTemp"
-                android:text='@{"temperature: " + Double.toString(model.liveData.main.temp)}'
+                android:text='@{"temperature: " + model.liveDataWeather.temperature}'
                 android:paddingHorizontal="@dimen/weater_detal_padding_text"
                 app:layout_constraintTop_toBottomOf="@+id/tvDesc"
                 android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                 app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.095"/>
         <TextView
                 android:id="@+id/tvPressure"
-                android:text='@{"pressure: " + Integer.toString(model.liveData.main.pressure)}'
+                android:text='@{"pressure: " + Double.toString(model.liveDataWeather.pressure)}'
                 android:paddingHorizontal="@dimen/weater_detal_padding_text"
                 app:layout_constraintTop_toBottomOf="@+id/tvTemp"
                 android:layout_width="match_parent"
@@ -73,7 +73,7 @@
                 app:layout_constraintVertical_bias="0.121" android:layout_marginTop="8dp"/>
         <TextView
                 android:id="@+id/tvHumidity"
-                android:text='@{"humidity: " + Integer.toString(model.liveData.main.humidity)}'
+                android:text='@{"humidity: " + Integer.toString(model.liveDataWeather.humidity)}'
                 android:paddingHorizontal="@dimen/weater_detal_padding_text"
                 app:layout_constraintTop_toBottomOf="@+id/tvPressure"
                 android:layout_width="match_parent"
