@@ -1,4 +1,4 @@
-package com.example.gl_crash_course.forecastlist
+package com.example.gl_crash_course.weatherlist
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.gl_crash_course.db.model.WeatherEntry

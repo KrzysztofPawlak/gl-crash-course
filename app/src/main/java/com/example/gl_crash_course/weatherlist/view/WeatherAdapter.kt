@@ -1,4 +1,4 @@
-package com.example.gl_crash_course.forecastlist.view
+package com.example.gl_crash_course.weatherlist.view
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gl_crash_course.ForecastApiConst.ADAPTER_SIZE_DIVIDE
+import com.example.gl_crash_course.WeatherApiConst.ADAPTER_SIZE_DIVIDE
 import com.example.gl_crash_course.db.model.WeatherEntry
 import com.example.gl_crash_course.databinding.ListItemBinding
-import com.example.gl_crash_course.forecastlist.CityDiffUtilCallback
+import com.example.gl_crash_course.weatherlist.CityDiffUtilCallback
 import kotlinx.android.synthetic.main.list_item.view.*
 
-class ForecastAdapter(private val callback: OnCityClickListener, private val callbackVisited: VisitedInterface) :
-    RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
+class WeatherAdapter(private val callback: OnCityClickListener, private val callbackVisited: VisitedInterface) :
+    RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
 
     private var forecastList: List<WeatherEntry> = ArrayList()
 

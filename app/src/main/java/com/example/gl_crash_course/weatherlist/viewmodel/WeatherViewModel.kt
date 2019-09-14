@@ -1,27 +1,27 @@
-package com.example.gl_crash_course.forecastlist.viewmodel
+package com.example.gl_crash_course.weatherlist.viewmodel
 
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.gl_crash_course.ForecastApiConst.UPDATE_TIME
+import com.example.gl_crash_course.WeatherApiConst.UPDATE_TIME
 import com.example.gl_crash_course.db.model.WeatherEntry
 import com.example.gl_crash_course.api.model.Forecast
-import com.example.gl_crash_course.db.repository.ForecastRepository
-import com.example.gl_crash_course.api.ForecastService
+import com.example.gl_crash_course.db.repository.WeatherRepository
+import com.example.gl_crash_course.api.WeatherService
 import com.example.gl_crash_course.db.model.CityEntry
 import com.example.gl_crash_course.db.repository.CityRepository
 import java.time.*
 import java.time.temporal.ChronoUnit
 import java.util.concurrent.atomic.AtomicInteger
 
-class ForecastViewModel(application: Application) : AndroidViewModel(application),
-    ForecastService.GetForecastCallback, ForecastRepository.DbOperationCallback {
+class WeatherViewModel(application: Application) : AndroidViewModel(application),
+    WeatherService.GetForecastCallback, WeatherRepository.DbOperationCallback {
 
-    private val forecastRepository = ForecastRepository(application)
+    private val forecastRepository = WeatherRepository(application)
     private val cityRepository = CityRepository(application)
-    private var forecastService: ForecastService = ForecastService(application)
+    private var weatherService: WeatherService = WeatherService(application)
 
     private var counterCurrentOperationOnDb = AtomicInteger()
 
@@ -60,7 +60,7 @@ class ForecastViewModel(application: Application) : AndroidViewModel(application
             return
         }
 
-        if (mutableForecast.value.isNullOrEmpty() || mutableCities.value.isNullOrEmpty()) {
+        if (mutableForecast.value == null || mutableCities.value == null) {
             return
         }
 
@@ -74,7 +74,7 @@ class ForecastViewModel(application: Application) : AndroidViewModel(application
 
     private fun getData() {
         val ids = mutableCities.value!!.joinToString(separator = ",") { "${it.api_id}" }
-        forecastService.getSetOfWeatherByIds(ids, this)
+        weatherService.getSetOfWeatherByIds(ids, this)
     }
 
     override fun onForecastLoaded(forecast: Forecast?) {
@@ -90,7 +90,13 @@ class ForecastViewModel(application: Application) : AndroidViewModel(application
                 it.name,
                 it.main.temp.toString(),
                 it.weather[0].icon,
-                LocalDateTime.now()
+                LocalDateTime.now(),
+                it.weather[0].description,
+                it.main.pressure,
+                it.main.humidity,
+                it.wind.speed,
+                it.sys.sunrise,
+                it.sys.sunset
             )
         }
 

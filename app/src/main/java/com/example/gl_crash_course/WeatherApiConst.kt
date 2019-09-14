@@ -1,6 +1,6 @@
 package com.example.gl_crash_course
 
-object ForecastApiConst {
+object WeatherApiConst {
 
     const val API_PATH = "https://api.openweathermap.org/data/2.5/"
     const val IMG_URL_PREFIX = "http://openweathermap.org/img/wn/"

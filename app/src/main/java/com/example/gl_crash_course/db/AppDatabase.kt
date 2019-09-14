@@ -10,7 +10,7 @@ import com.example.gl_crash_course.db.model.CityEntry
 import com.example.gl_crash_course.db.model.SearchHistoryEntry
 import com.example.gl_crash_course.db.model.WeatherEntry
 
-@Database(entities = [WeatherEntry::class, CityEntry::class, SearchHistoryEntry::class], version = 8)
+@Database(entities = [WeatherEntry::class, CityEntry::class, SearchHistoryEntry::class], version = 9)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun weatherDao(): WeatherDao

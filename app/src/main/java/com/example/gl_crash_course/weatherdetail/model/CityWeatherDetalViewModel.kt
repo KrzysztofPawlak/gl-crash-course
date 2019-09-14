@@ -3,23 +3,23 @@ package com.example.gl_crash_course.weatherdetail.model
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import com.example.gl_crash_course.api.model.City
-import com.example.gl_crash_course.api.ForecastService
+import androidx.lifecycle.MediatorLiveData
+import com.example.gl_crash_course.db.model.WeatherEntry
+import com.example.gl_crash_course.db.repository.WeatherRepository
 
-class CityWeatherDetalViewModel(application: Application) : AndroidViewModel(application),
-    ForecastService.GetWeatherCallback {
+class CityWeatherDetalViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var forecastService: ForecastService = ForecastService(application)
+    private var weatherRepository: WeatherRepository = WeatherRepository(application)
 
-    var liveData = MutableLiveData<City>()
+    var liveDataWeather = MediatorLiveData<WeatherEntry>()
 
-    fun getOne(id: String) {
-        forecastService.getWeatherById(id, this)
-    }
-
-    override fun onWeatherLoaded(city: City?) {
-        liveData.value = city
+    fun loadWeather(id: Int) {
+        var dataFromDb = weatherRepository.get(id)
+        liveDataWeather.addSource(dataFromDb) { it ->
+            it?.let {
+                liveDataWeather.value = it
+            }
+        }
     }
 
 }

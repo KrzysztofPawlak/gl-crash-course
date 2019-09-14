@@ -3,7 +3,7 @@ package com.example.gl_crash_course.api
 import android.content.Context
 import android.widget.Toast
 import com.example.gl_crash_course.BuildConfig
-import com.example.gl_crash_course.ForecastApiConst
+import com.example.gl_crash_course.WeatherApiConst
 import com.example.gl_crash_course.R
 import com.example.gl_crash_course.api.model.City
 import com.example.gl_crash_course.api.model.Forecast
@@ -15,9 +15,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ForecastService(var context: Context) {
+class WeatherService(var context: Context) {
 
-    private var forecastApi: ForecastApi
+    private var weatherApi: WeatherApi
     private val cacheSize: Long = 5 * 1024 * 1024
     private val cache: Cache = Cache(context.cacheDir, cacheSize)
 
@@ -28,31 +28,15 @@ class ForecastService(var context: Context) {
             .build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(ForecastApiConst.API_PATH)
+            .baseUrl(WeatherApiConst.API_PATH)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        forecastApi = retrofit.create(ForecastApi::class.java)
-    }
-
-    fun getWeatherById(id: String, callback: GetWeatherCallback) {
-        forecastApi.getWeatherById(id, BuildConfig.OpenWeatherAppKey, ForecastApiConst.UNITS)
-            .enqueue(object : Callback<City> {
-                override fun onFailure(call: Call<City>, t: Throwable?) {
-                    Toast.makeText(context, context.getString(R.string.fetch_toast_message), Toast.LENGTH_LONG).show()
-                }
-
-                override fun onResponse(call: Call<City>, response: Response<City>) {
-                    if (response.message() == context.getString(R.string.no_network_response_message)) {
-                        Toast.makeText(context, context.getString(R.string.no_network_toast_message), Toast.LENGTH_LONG).show()
-                    }
-                    callback.onWeatherLoaded(response.body())
-                }
-            })
+        weatherApi = retrofit.create(WeatherApi::class.java)
     }
 
     fun getWeatherByCityName(name: String, callback: GetWeatherByCityNameCallback) {
-        forecastApi.getWeatherByCityName(name, BuildConfig.OpenWeatherAppKey, ForecastApiConst.UNITS)
+        weatherApi.getWeatherByCityName(name, BuildConfig.OpenWeatherAppKey, WeatherApiConst.UNITS)
             .enqueue(object : Callback<City> {
                 override fun onFailure(call: Call<City>, t: Throwable?) {
                     Toast.makeText(context, context.getString(R.string.fetch_toast_message), Toast.LENGTH_LONG).show()
@@ -68,7 +52,7 @@ class ForecastService(var context: Context) {
     }
 
     fun getSetOfWeatherByIds(ids: String, callback: GetForecastCallback) {
-        forecastApi.getSetOfWeatherByIds(ids, BuildConfig.OpenWeatherAppKey, ForecastApiConst.UNITS)
+        weatherApi.getSetOfWeatherByIds(ids, BuildConfig.OpenWeatherAppKey, WeatherApiConst.UNITS)
             .enqueue(object : Callback<Forecast> {
                 override fun onFailure(call: Call<Forecast>, t: Throwable?) {
                     Toast.makeText(context, context.getString(R.string.fetch_toast_message), Toast.LENGTH_LONG).show()
@@ -85,10 +69,6 @@ class ForecastService(var context: Context) {
 
     interface GetForecastCallback {
         fun onForecastLoaded(forecast: Forecast?)
-    }
-
-    interface GetWeatherCallback {
-        fun onWeatherLoaded(city: City?)
     }
 
     interface GetWeatherByCityNameCallback {

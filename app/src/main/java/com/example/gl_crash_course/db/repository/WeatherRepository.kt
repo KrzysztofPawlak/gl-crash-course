@@ -9,7 +9,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class ForecastRepository(application: Application) {
+class WeatherRepository(application: Application) {
     private var database = AppDatabase.getAppDatabase(
         application
     )!!
@@ -17,7 +17,7 @@ class ForecastRepository(application: Application) {
 
     val allWeather: LiveData<List<WeatherEntry>> = weatherDao.getAll()
 
-    fun insert(weatherEntry: WeatherEntry, callback: DbOperationCallback) = GlobalScope.launch(Dispatchers.Main){
+    fun insert(weatherEntry: WeatherEntry, callback: DbOperationCallback) = GlobalScope.launch(Dispatchers.Main) {
         async(Dispatchers.IO) {
             weatherDao?.insert(weatherEntry)
         }.invokeOnCompletion {
@@ -25,20 +25,34 @@ class ForecastRepository(application: Application) {
         }
     }
 
-    fun update(weatherEntry: WeatherEntry, callback: DbOperationCallback) = GlobalScope.launch(Dispatchers.Main){
+    fun update(weatherEntry: WeatherEntry, callback: DbOperationCallback) = GlobalScope.launch(Dispatchers.Main) {
         async(Dispatchers.IO) {
-            weatherDao?.update(weatherEntry.temperature, weatherEntry.icon, weatherEntry.refreshed, weatherEntry.api_id)
+            weatherDao?.update(
+                weatherEntry.temperature, weatherEntry.icon, weatherEntry.refreshed, weatherEntry.api_id,
+                weatherEntry.description, weatherEntry.pressure, weatherEntry.humidity, weatherEntry.wind_speed,
+                weatherEntry.sunrise, weatherEntry.sunset
+            )
         }.invokeOnCompletion {
             callback.onFinishDb()
         }
     }
 
-    fun delete(api_id: Int, callback: DbOperationCallback) = GlobalScope.launch(Dispatchers.Main){
+    fun delete(api_id: Int, callback: DbOperationCallback) = GlobalScope.launch(Dispatchers.Main) {
         async(Dispatchers.IO) {
             weatherDao?.delete(api_id)
         }.invokeOnCompletion {
             callback.onFinishDb()
         }
+    }
+
+    fun deleteWithoutCallback(api_id: Int) = GlobalScope.launch(Dispatchers.Main) {
+        async(Dispatchers.IO) {
+            weatherDao?.delete(api_id)
+        }
+    }
+
+    fun get(api_id: Int): LiveData<WeatherEntry> {
+        return weatherDao.get(api_id)
     }
 
     interface DbOperationCallback {

@@ -22,7 +22,7 @@
 
         <variable
                 name="listener"
-                type="com.example.gl_crash_course.forecastlist.view.ForecastAdapter.OnCityClickListener"/>
+                type="com.example.gl_crash_course.weatherlist.view.WeatherAdapter.OnCityClickListener"/>
     </data>
     <com.google.android.material.card.MaterialCardView
             android:id="@+id/list_item"

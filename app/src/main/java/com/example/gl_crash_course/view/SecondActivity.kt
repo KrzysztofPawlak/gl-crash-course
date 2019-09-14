@@ -12,13 +12,13 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.gl_crash_course.R
 import com.example.gl_crash_course.citysettings.view.SettingsFragment
 import com.example.gl_crash_course.databinding.ActivitySecondBinding
-import com.example.gl_crash_course.forecastlist.view.FirstFragment
-import com.example.gl_crash_course.forecastlist.view.ForecastAdapter
+import com.example.gl_crash_course.weatherlist.view.FirstFragment
+import com.example.gl_crash_course.weatherlist.view.WeatherAdapter
 import com.example.gl_crash_course.viewmodel.VisitedViewModel
 import com.example.gl_crash_course.weatherdetail.view.SecondFragment
 import com.google.android.material.navigation.NavigationView
 
-class SecondActivity : AppCompatActivity(), ForecastAdapter.VisitedInterface,
+class SecondActivity : AppCompatActivity(), WeatherAdapter.VisitedInterface,
     NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var model: VisitedViewModel
