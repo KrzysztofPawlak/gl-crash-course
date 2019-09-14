@@ -26,6 +26,8 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     private val weatherRepository = WeatherRepository(application)
     private val searchHistoryRepository = SearchHistoryRepository(application)
 
+    var isSearchFinished: MutableLiveData<Boolean> = MutableLiveData()
+
     init {
         var dataCityListFromDb = cityRepository.allCities
         mediatorCityLiveData.addSource(dataCityListFromDb) { result: List<CityEntry>? ->
@@ -42,6 +44,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun onShowData() {
+        isSearchFinished.value = false
         if (searchedText.value != null) {
             weatherService.getWeatherByCityName(searchedText.value.toString(), this)
             searchHistoryRepository.insert(
@@ -51,6 +54,8 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
                     LocalDateTime.now()
                 )
             )
+        } else {
+            isSearchFinished.value = true
         }
     }
 
@@ -83,5 +88,6 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         if (city != null) {
             searchResult.value = city
         }
+        isSearchFinished.value = true
     }
 }

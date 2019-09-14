@@ -24,7 +24,7 @@ class WeatherService(var context: Context) {
     init {
         val client = OkHttpClient().newBuilder()
             .cache(cache)
-            .addInterceptor(HttpCacheInterceptor(context))
+            .addInterceptor(HttpNetworkOfflineInterceptor(context))
             .build()
 
         val retrofit = Retrofit.Builder()

@@ -66,9 +66,15 @@ class SettingsFragment : Fragment(), CityAdapter.OnCityClickListener {
 
         model.searchResult.observe(this, Observer<City> {
             binding.tvResult.text = it.name + " - " + it.sys.country
-            view.hideKeyboard()
+        })
+
+        model.isSearchFinished.observe(this, Observer {
+            if (it == true) {
+                view.hideKeyboard()
+            }
         })
     }
+
 
     override fun onCityClick(api_id: Int) {
         model.deleteCityFromList(api_id)

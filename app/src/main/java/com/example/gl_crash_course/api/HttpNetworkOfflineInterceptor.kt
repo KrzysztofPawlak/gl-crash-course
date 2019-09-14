@@ -6,7 +6,7 @@ import com.example.gl_crash_course.service.NetworkUtils
 import okhttp3.*
 import java.io.IOException
 
-class HttpCacheInterceptor(var context: Context) : Interceptor {
+class HttpNetworkOfflineInterceptor(var context: Context) : Interceptor {
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
