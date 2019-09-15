@@ -25,60 +25,65 @@
                 app:layout_constraintVertical_bias="0.092"/>
         <TextView
                 android:id="@+id/tvName"
-                android:text='@{"city: " + model.liveDataWeather.name}'
+                android:text='@{@string/city_prefix + ": " + model.liveDataWeather.name}'
                 android:paddingHorizontal="@dimen/weater_detal_padding_text"
                 app:layout_constraintTop_toBottomOf="@+id/iv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:textSize="@dimen/weater_detal_font_size"
+                android:textColor="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"
                 app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.318"/>
         <TextView
                 android:id="@+id/tvDesc"
-                android:text='@{"description: " + model.liveDataWeather.description}'
+                android:text='@{@string/desc_prefix + ": " + model.liveDataWeather.description}'
                 android:paddingHorizontal="@dimen/weater_detal_padding_text"
                 app:layout_constraintTop_toBottomOf="@+id/tvName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:textSize="@dimen/weater_detal_font_size"
+                android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintVertical_bias="0.072" android:layout_marginTop="8dp"/>
         <TextView
                 android:id="@+id/tvTemp"
-                android:text='@{"temperature: " + model.liveDataWeather.temperature}'
+                android:text='@{@string/temp_prefix + ": " + model.liveDataWeather.temperature}'
                 android:paddingHorizontal="@dimen/weater_detal_padding_text"
                 app:layout_constraintTop_toBottomOf="@+id/tvDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:textSize="@dimen/weater_detal_font_size"
+                android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"
                 app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.095"/>
         <TextView
                 android:id="@+id/tvPressure"
-                android:text='@{"pressure: " + Double.toString(model.liveDataWeather.pressure)}'
+                android:text='@{@string/pressure_prefix + ": " + Double.toString(model.liveDataWeather.pressure)}'
                 android:paddingHorizontal="@dimen/weater_detal_padding_text"
                 app:layout_constraintTop_toBottomOf="@+id/tvTemp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:textSize="@dimen/weater_detal_font_size"
+                android:textColor="#FFFFFF"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintVertical_bias="0.121" android:layout_marginTop="8dp"/>
         <TextView
                 android:id="@+id/tvHumidity"
-                android:text='@{"humidity: " + Integer.toString(model.liveDataWeather.humidity)}'
+                android:text='@{@string/humidity_prefix + ": " + Integer.toString(model.liveDataWeather.humidity)}'
                 android:paddingHorizontal="@dimen/weater_detal_padding_text"
                 app:layout_constraintTop_toBottomOf="@+id/tvPressure"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
+                android:textColor="@color/white"
                 android:textSize="@dimen/weater_detal_font_size"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.0"
@@ -90,6 +95,7 @@
                 android:text="@string/btnStartFirstFragment"
                 android:gravity="center_horizontal"
                 android:textColor="#FFFFFF"
+                android:textSize="@dimen/button_text_size"
                 android:id="@+id/btnStartFirstFragment"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>

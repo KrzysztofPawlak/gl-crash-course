@@ -1,4 +1,4 @@
-package com.example.gl_crash_course.citysettings.viewmodel
+package com.example.gl_crash_course.citypicker.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -13,7 +13,7 @@ import com.example.gl_crash_course.db.repository.SearchHistoryRepository
 import com.example.gl_crash_course.db.repository.WeatherRepository
 import java.time.LocalDateTime
 
-class SettingsViewModel(application: Application) : AndroidViewModel(application),
+class CityViewModel(application: Application) : AndroidViewModel(application),
     WeatherService.GetWeatherByCityNameCallback {
 
     var searchedText = MutableLiveData<String>()

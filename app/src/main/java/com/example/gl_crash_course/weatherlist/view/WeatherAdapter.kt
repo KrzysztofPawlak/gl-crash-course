@@ -29,6 +29,7 @@ class WeatherAdapter(private val callback: OnCityClickListener, private val call
         val inflater = LayoutInflater.from(parent.context)
         val binding = ListItemBinding.inflate(inflater)
         binding.listItem.minimumHeight = parent.measuredHeight / ADAPTER_SIZE_DIVIDE
+        binding.listItem.linear_layout_item_card.minimumHeight = parent.measuredHeight / ADAPTER_SIZE_DIVIDE
 
         return ViewHolder(binding)
     }

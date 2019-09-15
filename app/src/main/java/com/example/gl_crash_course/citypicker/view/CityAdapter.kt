@@ -1,4 +1,4 @@
-package com.example.gl_crash_course.citysettings.view
+package com.example.gl_crash_course.citypicker.view
 
 import android.view.LayoutInflater
 import android.view.View

@@ -10,6 +10,7 @@
     <TextView
             android:text="@string/course_name"
             android:textSize="@dimen/course_name_dim"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textViewCourseName" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
@@ -20,6 +21,7 @@
     <TextView
             android:text="@string/author"
             android:textSize="@dimen/autor_dim"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"

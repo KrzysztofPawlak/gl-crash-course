@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">gl-crash-course</string>
+    <string name="fragment_first_text_transition">Ilość przejść :</string>
+
+    <!-- textView -->
+    <string name="fragment_first_text">Pierwszy fragment</string>
+    <string name="fragment_second_text">Drugi fragment</string>
+    <string name="course_name">Android crash course</string>
+
+    <string name="activity_first_text">Pierwsza aktywność</string>
+
+    <string name="author">Krzysztof studio</string>
+
+    <!-- fragments tags -->
+    <string name="tag_fragment_first">FirstFragment</string>
+    <string name="tag_fragment_second">SecondFragment</string>
+    <string name="tag_fragment_settings">SettingsFragment</string>
+
+    <!-- buttons -->
+    <string name="btnStartFirstFragment">Powrót do listy</string>
+    <string name="btnStartSecondFragment">Uruchom drugi fragment</string>
+
+    <string name="settings">Ustawienia</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Pusty powitalny fragment</string>
+
+    <string name="navigation_drawer_open">Otwórz panel nawigacji</string>
+    <string name="navigation_drawer_close">Zamknij panel nawigacji</string>
+    <string name="navigation_drawer_city_list">List miast</string>
+    <string name="navigation_drawer_add_remove_city">Dodaj / Usuń miasto</string>
+    <string name="navigation_drawer_settings">Ustawienia</string>
+
+    <!-- internet -->
+    <string name="no_network_response_message">brak internetu</string>
+    <string name="no_network_toast_message">brak internetu!!!</string>
+    <string name="fetch_toast_message">błąd pobierania!!!</string>
+    <string name="settings_saved_toast_message">zapisano!!!</string>
+
+    <!-- settings view -->
+    <string name="settings_header_interval">Czas odświeżania: godziny - minuty</string>
+    <string name="settings_header_language">Język: </string>
+    <string name="button_save_text">Zapisz</string>
+    <string name="button_enter_text">Wejdź</string>
+
+    <!-- list card view -->
+    <string name="temp_prefix">Temperatura</string>
+
+    <!-- detal view -->
+    <string name="city_prefix">Miejscowość</string>
+    <string name="desc_prefix">Opis</string>
+    <string name="pressure_prefix">Ciśnienie</string>
+    <string name="humidity_prefix">Wilgotność</string>
+
+    <string-array name="languages">
+        <item>Angielski</item>
+        <item>Polski</item>
+    </string-array>
+</resources>
