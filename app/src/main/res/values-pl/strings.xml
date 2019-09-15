@@ -31,6 +31,11 @@
     <string name="fetch_toast_message">błąd pobierania!!!</string>
     <string name="settings_saved_toast_message">zapisano!!!</string>
 
+    <string name="settings_header_interval">Czas odświeżania: godziny - minuty</string>
+    <string name="settings_header_language">Język: </string>
+    <string name="button_save_text">Zapisz</string>
+    <string name="button_enter_text">Wejdź</string>
+
     <string-array name="languages">
         <item>Angielski</item>
         <item>Polski</item>

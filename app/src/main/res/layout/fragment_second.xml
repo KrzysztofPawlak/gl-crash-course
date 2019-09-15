@@ -32,6 +32,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:textSize="@dimen/weater_detal_font_size"
+                android:textColor="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"
                 app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.318"/>
@@ -44,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:textSize="@dimen/weater_detal_font_size"
+                android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintVertical_bias="0.072" android:layout_marginTop="8dp"/>
@@ -56,6 +58,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:textSize="@dimen/weater_detal_font_size"
+                android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" android:layout_marginTop="8dp"
                 app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.095"/>
@@ -68,6 +71,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:textSize="@dimen/weater_detal_font_size"
+                android:textColor="#FFFFFF"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintVertical_bias="0.121" android:layout_marginTop="8dp"/>
@@ -79,6 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
+                android:textColor="@color/white"
                 android:textSize="@dimen/weater_detal_font_size"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.0"
@@ -90,6 +95,7 @@
                 android:text="@string/btnStartFirstFragment"
                 android:gravity="center_horizontal"
                 android:textColor="#FFFFFF"
+                android:textSize="@dimen/button_text_size"
                 android:id="@+id/btnStartFirstFragment"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>

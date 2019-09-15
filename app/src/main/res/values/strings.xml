@@ -30,6 +30,11 @@
     <string name="fetch_toast_message">fetch failure!!!</string>
     <string name="settings_saved_toast_message">saved!!!</string>
 
+    <string name="settings_header_interval">Interval time: hours - minutes</string>
+    <string name="settings_header_language">Language: </string>
+    <string name="button_save_text">Save</string>
+    <string name="button_enter_text">Enter</string>
+
     <string-array name="languages">
         <item>English</item>
         <item>Polish</item>
