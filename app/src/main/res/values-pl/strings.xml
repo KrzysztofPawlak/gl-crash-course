@@ -7,6 +7,9 @@
     <string name="fragment_first_text">Pierwszy fragment</string>
     <string name="fragment_second_text">Drugi fragment</string>
     <string name="course_name">Android crash course</string>
+
+    <string name="activity_first_text">Pierwsza aktywność</string>
+
     <string name="author">Krzysztof studio</string>
 
     <!-- fragments tags -->
@@ -35,6 +38,8 @@
     <string name="settings_header_language">Język: </string>
     <string name="button_save_text">Zapisz</string>
     <string name="button_enter_text">Wejdź</string>
+
+    <string name="temp_prefix">Temperatura</string>
 
     <string-array name="languages">
         <item>Angielski</item>

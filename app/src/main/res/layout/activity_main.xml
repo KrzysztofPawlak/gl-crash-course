@@ -11,7 +11,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:text="@string/fragment_first_text"
+            android:text="@string/activity_first_text"
             android:textSize="@dimen/header_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

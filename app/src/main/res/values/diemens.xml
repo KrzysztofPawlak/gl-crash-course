@@ -4,6 +4,8 @@
     <dimen name="autor_dim">16dp</dimen>
     <dimen name="weater_detal_font_size">20dp</dimen>
     <dimen name="weater_detal_padding_text">30dp</dimen>
-    <dimen name="button_text_size">24dp</dimen>
+    <dimen name="button_text_size">20dp</dimen>
     <dimen name="header_text_size">22dp</dimen>
+    <dimen name="card_view_text_size">24dp</dimen>
+    <dimen name="card_view_time_text_size">16dp</dimen>
 </resources>
