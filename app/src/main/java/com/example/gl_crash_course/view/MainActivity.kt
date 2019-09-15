@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gl_crash_course.R
+import com.example.gl_crash_course.SharedPreferencesManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -12,6 +13,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val sharedPreferencesManager = SharedPreferencesManager(this)
+        sharedPreferencesManager.setLanguage()
+
         setContentView(R.layout.activity_main)
 
         btnStartSecondActivity.setOnClickListener {
@@ -24,4 +28,5 @@ class MainActivity : AppCompatActivity() {
 
         counterTransition = intent.getIntExtra("counterTransition", 0)
     }
+
 }

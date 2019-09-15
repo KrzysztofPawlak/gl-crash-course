@@ -4,8 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
-import com.example.gl_crash_course.view.MainActivity
 import com.example.gl_crash_course.R
+import com.example.gl_crash_course.SharedPreferencesManager
+import com.example.gl_crash_course.view.MainActivity
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -13,6 +14,8 @@ class SplashScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val sharedPreferencesManager = SharedPreferencesManager(this)
+        sharedPreferencesManager.setLanguage()
         setContentView(R.layout.activity_splash_screen)
 
         Handler().postDelayed({

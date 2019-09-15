@@ -10,13 +10,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.gl_crash_course.R
+import com.example.gl_crash_course.SharedPreferencesManager
 import com.example.gl_crash_course.citypicker.view.CityFragment
 import com.example.gl_crash_course.databinding.ActivitySecondBinding
 import com.example.gl_crash_course.settings.view.SettingsFragment
-import com.example.gl_crash_course.weatherlist.view.FirstFragment
-import com.example.gl_crash_course.weatherlist.view.WeatherAdapter
 import com.example.gl_crash_course.viewmodel.VisitedViewModel
 import com.example.gl_crash_course.weatherdetail.view.SecondFragment
+import com.example.gl_crash_course.weatherlist.view.FirstFragment
+import com.example.gl_crash_course.weatherlist.view.WeatherAdapter
 import com.google.android.material.navigation.NavigationView
 
 class SecondActivity : AppCompatActivity(), WeatherAdapter.VisitedInterface,
@@ -31,6 +32,8 @@ class SecondActivity : AppCompatActivity(), WeatherAdapter.VisitedInterface,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val sharedPreferencesManager = SharedPreferencesManager(this)
+        sharedPreferencesManager.setLanguage()
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_second)
 

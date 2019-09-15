@@ -7,8 +7,14 @@ object WeatherApiConst {
     const val IMG_URL_POSTFIX = "@2x.png"
     const val UNITS: String = "metric"
     const val UPDATE_TIME: Int = 2
-    const val ADAPTER_LIST_SIZE: Int = 16
     const val ADAPTER_SIZE_DIVIDE: Int = 3
+
+    val LANGUAGES = mapOf(
+        "English" to "en",
+        "Polish" to "pl",
+        "Angielski" to "en",
+        "Polski" to "pl"
+    )
 
     val PL_CITIES_IDS = mapOf(
         "Szczecin" to 3083829,
