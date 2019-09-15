@@ -8,6 +8,7 @@ object WeatherApiConst {
     const val UNITS: String = "metric"
     const val UPDATE_TIME: Int = 2
     const val ADAPTER_SIZE_DIVIDE: Int = 3
+    const val MINUTES_IN_HOUR = 60
 
     val LANGUAGES = mapOf(
         "English" to "en",

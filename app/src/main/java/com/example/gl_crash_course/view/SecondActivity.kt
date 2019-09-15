@@ -102,6 +102,12 @@ class SecondActivity : AppCompatActivity(), WeatherAdapter.VisitedInterface,
         }
     }
 
+    fun refreshFragment(fragment: Fragment) {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.detach(fragment).attach(fragment)
+        fragmentTransaction.commit()
+    }
+
     fun switchFragment(fragment: Fragment, bundle: Bundle = Bundle.EMPTY) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
 

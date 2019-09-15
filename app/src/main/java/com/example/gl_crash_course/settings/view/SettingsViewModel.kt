@@ -7,6 +7,7 @@ import com.example.gl_crash_course.R
 
 class SettingsViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val languagesList = application.resources.getStringArray(R.array.languages)
     val languageIdItemPosition = MutableLiveData<Int>()
     var languageIdValue
         get() = languageIdItemPosition.value?.let {
@@ -21,5 +22,6 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
             }
         }
 
-    private val languagesList = application.resources.getStringArray(R.array.languages)
+    var intervalHours = MutableLiveData<Int>()
+    var intervalMinutes = MutableLiveData<Int>()
 }

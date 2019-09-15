@@ -5,14 +5,16 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.gl_crash_course.WeatherApiConst.UPDATE_TIME
-import com.example.gl_crash_course.db.model.WeatherEntry
-import com.example.gl_crash_course.api.model.Forecast
-import com.example.gl_crash_course.db.repository.WeatherRepository
+import com.example.gl_crash_course.SharedPreferencesManager
 import com.example.gl_crash_course.api.WeatherService
+import com.example.gl_crash_course.api.model.Forecast
 import com.example.gl_crash_course.db.model.CityEntry
+import com.example.gl_crash_course.db.model.WeatherEntry
 import com.example.gl_crash_course.db.repository.CityRepository
-import java.time.*
+import com.example.gl_crash_course.db.repository.WeatherRepository
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.OffsetDateTime
 import java.time.temporal.ChronoUnit
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -130,8 +132,10 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
     }
 
     private fun checkCurrentEntriesAreOutdated(): Boolean {
+        val sharedPreferencesManager = SharedPreferencesManager(getApplication())
+        val updateTime = sharedPreferencesManager.getValueInt("interval")
         return mutableForecast.value!!.any {
-            ChronoUnit.MINUTES.between(it.refreshed.toInstant(OffsetDateTime.now().offset), Instant.now()) > UPDATE_TIME
+            ChronoUnit.MINUTES.between(it.refreshed.toInstant(OffsetDateTime.now().offset), Instant.now()) > updateTime!!
         }
     }
 
