@@ -26,19 +26,30 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_city_list">City List</string>
+    <string name="navigation_drawer_add_remove_city">Add / Remove City</string>
+    <string name="navigation_drawer_settings">Settings</string>
 
+    <!-- internet -->
     <string name="no_network_response_message">has no network</string>
     <string name="no_network_toast_message">no network!!!</string>
     <string name="fetch_toast_message">fetch failure!!!</string>
     <string name="settings_saved_toast_message">saved!!!</string>
 
+    <!-- settings view -->
     <string name="settings_header_interval">Interval time: hours - minutes</string>
     <string name="settings_header_language">Language: </string>
     <string name="button_save_text">Save</string>
     <string name="button_enter_text">Enter</string>
 
-    <!-- card view -->
+    <!-- list card view -->
     <string name="temp_prefix">Temperature</string>
+
+    <!-- detal view -->
+    <string name="city_prefix">City</string>
+    <string name="desc_prefix">Description</string>
+    <string name="pressure_prefix">Pressure</string>
+    <string name="humidity_prefix">Humidity</string>
 
     <string-array name="languages">
         <item>English</item>
