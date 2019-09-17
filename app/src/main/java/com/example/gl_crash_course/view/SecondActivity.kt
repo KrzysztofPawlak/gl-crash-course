@@ -54,6 +54,14 @@ class SecondActivity : AppCompatActivity(), WeatherAdapter.VisitedInterface,
         model = ViewModelProviders.of(this).get(VisitedViewModel::class.java)
     }
 
+    fun reloadActivity() {
+        var i = Intent(this, SecondActivity::class.java)
+        finish()
+        overridePendingTransition(0, 0)
+        startActivity(i)
+        overridePendingTransition(0, 0)
+    }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
 
