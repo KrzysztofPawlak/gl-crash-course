@@ -19,7 +19,7 @@ import java.time.temporal.ChronoUnit
 import java.util.concurrent.atomic.AtomicInteger
 
 class WeatherViewModel(application: Application) : AndroidViewModel(application),
-    WeatherService.GetForecastCallback, WeatherRepository.DbOperationCallback {
+    WeatherService.GetForecastCallback, WeatherRepository.DbOperationCallback, WeatherService.FailureCallback {
 
     private val forecastRepository = WeatherRepository(application)
     private val cityRepository = CityRepository(application)
@@ -76,7 +76,7 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
 
     private fun getData() {
         val ids = mutableCities.value!!.joinToString(separator = ",") { "${it.api_id}" }
-        weatherService.getSetOfWeatherByIds(ids, this)
+        weatherService.getSetOfWeatherByIds(ids, this, this)
     }
 
     override fun onForecastLoaded(forecast: Forecast?) {
@@ -123,6 +123,10 @@ class WeatherViewModel(application: Application) : AndroidViewModel(application)
                 forecastRepository.delete(it.api_id, this)
             }
 
+        refresh.value = false
+    }
+
+    override fun onResponseFailure() {
         refresh.value = false
     }
 

@@ -14,6 +14,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 class WeatherService(var context: Context) {
 
@@ -25,6 +26,8 @@ class WeatherService(var context: Context) {
         val client = OkHttpClient().newBuilder()
             .cache(cache)
             .addInterceptor(HttpNetworkOfflineInterceptor(context))
+            .readTimeout(3, TimeUnit.SECONDS)
+            .connectTimeout(3, TimeUnit.SECONDS)
             .build()
 
         val retrofit = Retrofit.Builder()
@@ -35,11 +38,12 @@ class WeatherService(var context: Context) {
         weatherApi = retrofit.create(WeatherApi::class.java)
     }
 
-    fun getWeatherByCityName(name: String, callback: GetWeatherByCityNameCallback) {
+    fun getWeatherByCityName(name: String, callback: GetWeatherByCityNameCallback, callbackFailure: FailureCallback) {
         weatherApi.getWeatherByCityName(name, BuildConfig.OpenWeatherAppKey, WeatherApiConst.UNITS)
             .enqueue(object : Callback<City> {
                 override fun onFailure(call: Call<City>, t: Throwable?) {
                     Toast.makeText(context, context.getString(R.string.fetch_toast_message), Toast.LENGTH_LONG).show()
+                    callbackFailure.onResponseFailure()
                 }
 
                 override fun onResponse(call: Call<City>, response: Response<City>) {
@@ -51,11 +55,12 @@ class WeatherService(var context: Context) {
             })
     }
 
-    fun getSetOfWeatherByIds(ids: String, callback: GetForecastCallback) {
+    fun getSetOfWeatherByIds(ids: String, callback: GetForecastCallback, callbackFailure: FailureCallback) {
         weatherApi.getSetOfWeatherByIds(ids, BuildConfig.OpenWeatherAppKey, WeatherApiConst.UNITS)
             .enqueue(object : Callback<Forecast> {
                 override fun onFailure(call: Call<Forecast>, t: Throwable?) {
                     Toast.makeText(context, context.getString(R.string.fetch_toast_message), Toast.LENGTH_LONG).show()
+                    callbackFailure.onResponseFailure()
                 }
 
                 override fun onResponse(call: Call<Forecast>, response: Response<Forecast>) {
@@ -65,6 +70,10 @@ class WeatherService(var context: Context) {
                     callback.onForecastLoaded(response.body())
                 }
             })
+    }
+
+    interface FailureCallback {
+        fun onResponseFailure()
     }
 
     interface GetForecastCallback {

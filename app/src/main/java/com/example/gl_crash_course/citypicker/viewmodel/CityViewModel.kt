@@ -14,7 +14,7 @@ import com.example.gl_crash_course.db.repository.WeatherRepository
 import java.time.LocalDateTime
 
 class CityViewModel(application: Application) : AndroidViewModel(application),
-    WeatherService.GetWeatherByCityNameCallback {
+    WeatherService.GetWeatherByCityNameCallback, WeatherService.FailureCallback {
 
     var searchedText = MutableLiveData<String>()
     var searchResult = MutableLiveData<City>()
@@ -46,7 +46,7 @@ class CityViewModel(application: Application) : AndroidViewModel(application),
     fun onShowData() {
         isSearchFinished.value = false
         if (searchedText.value != null) {
-            weatherService.getWeatherByCityName(searchedText.value.toString(), this)
+            weatherService.getWeatherByCityName(searchedText.value.toString(), this, this)
             searchHistoryRepository.insert(
                 SearchHistoryEntry(
                     0,
@@ -88,6 +88,10 @@ class CityViewModel(application: Application) : AndroidViewModel(application),
         if (city != null) {
             searchResult.value = city
         }
+        isSearchFinished.value = true
+    }
+
+    override fun onResponseFailure() {
         isSearchFinished.value = true
     }
 }
