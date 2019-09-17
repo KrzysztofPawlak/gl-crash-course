@@ -53,6 +53,7 @@ class SettingsFragment : Fragment() {
         binding.btnSave.setOnClickListener {
             sharedPreferencesManager.save("lang", model.languageIdValue!!)
             sharedPreferencesManager.setLanguage()
+            (activity as SecondActivity).reloadActivity()
 
             val interval = model.intervalHours.value!! * MINUTES_IN_HOUR + model.intervalMinutes.value!!
             sharedPreferencesManager.save("interval", interval)
