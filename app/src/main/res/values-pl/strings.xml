@@ -53,6 +53,13 @@
     <string name="pressure_prefix">Ciśnienie</string>
     <string name="humidity_prefix">Wilgotność</string>
 
+    <!-- city picker view -->
+    <string name="last_search">ostatni wynik:</string>
+    <string name="type_search_city">podaj miasto do wyszukania:</string>
+    <string name="result">wynik:</string>
+    <string name="btn_search_text">Wyszukaj</string>
+    <string name="btn_text_add">Dodaj</string>
+
     <string-array name="languages">
         <item>Angielski</item>
         <item>Polski</item>

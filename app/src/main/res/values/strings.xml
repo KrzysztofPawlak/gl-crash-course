@@ -51,6 +51,13 @@
     <string name="pressure_prefix">Pressure</string>
     <string name="humidity_prefix">Humidity</string>
 
+    <!-- city picker view -->
+    <string name="last_search">last results:</string>
+    <string name="type_search_city">type city to search:</string>
+    <string name="result">result:</string>
+    <string name="btn_search_text">Search</string>
+    <string name="btn_text_add">Add</string>
+
     <string-array name="languages">
         <item>English</item>
         <item>Polish</item>
