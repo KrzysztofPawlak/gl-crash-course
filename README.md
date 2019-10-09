@@ -1,6 +1,6 @@
 # gl-crash-course
 
-## Zadanie testowe - zajęcia IV
+## Zadanie testowe - zajęcia V
 * refaktor
 * dodanie widoku ustwień (czas po jakim odświeża pogodę, język)
 * list miast wczytywana z db
